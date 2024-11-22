@@ -1,0 +1,176 @@
+.calendar-container {
+  width: 100%; /* 화면 전체 너비 */
+  height: 100%; /* 화면 전체 높이 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.calendar-header {
+  width: 100%;
+  text-align: center;
+  background-color: none;
+  box-sizing: border-box;
+}
+
+/* 커스텀 드롭다운 */
+.custom-dropdown {
+  position: relative;
+  width: 200px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px auto; /* 가운데 정렬 */
+}
+
+.custom-dropdown:hover {
+  background-color: none ;
+}
+
+.selected-value {
+  font-size: 16px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px; /* 드롭다운 너비 */
+  display: flex;
+  background-color: f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  z-index: 1000;
+  padding-bottom: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.dropdown-scroll {
+  max-height: 90px; /* 3개 항목 */
+  overflow-y: auto; /* 스크롤 가능 */
+  border: none;
+  background-color: #f9f9f9;
+  padding-bottom: 5px;
+  /* 스크롤바 숨김 */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.dropdown-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.dropdown-item {
+  padding: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.dropdown-item:hover {
+  background-color: #804aff;
+  color: white;
+}
+
+.dropdown-item.active {
+  background-color: #804aff;
+  color: white;
+  font-weight: bold;
+}
+
+/* 캘린더 전체화면 크기 */
+.react-calendar {
+  width: 100%;
+  height: 100%; /* 헤더를 제외한 영역 */
+  border: none;
+}
+
+.react-calendar__viewContainer {
+  height: 100%;
+}
+
+.react-calendar__month-view {
+  height: 100%;
+}
+
+.react-calendar__month-view>div>div {
+  height: 70vh;
+}
+
+.react-calendar__month-view__days {
+  height: 100%;
+}
+
+.react-calendar__month-view__days__day {
+  position:relative;
+  align-content: start;
+}
+
+/* 날짜 셀 내부 레이아웃 */
+.react-calendar__tile {
+  display: flex;
+  flex-direction: column; /* 세로 정렬 */
+  justify-content: flex-start; /* 상단 정렬 */
+  align-items: center;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+/* 빨간 점 컨테이너 */
+.dot-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5;
+}
+
+.task-dot {
+  width: 5px;
+  height: 5px;
+  margin: 0 2px;
+  background-color: red;
+  border-radius: 50%;
+}
+
+.react-calendar__tile--now {
+  background: #e7e6e6;
+}
+
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+  background: #e7e6e6;
+  color: #fafafa;
+}
+
+.react-calendar__tile--active {
+  background: white;
+  color: #fafafa;
+}
+
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background-color: white;
+}
+
+/* 선택된 날짜 스타일 */
+.selected-date {
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  background-color: #ef5350;
+  border-radius: 5px;
+  color: white;
+}

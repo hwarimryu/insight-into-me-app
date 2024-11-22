@@ -1,0 +1,110 @@
+.modal {
+  position: relative;
+  background: white;
+  padding: 20px;
+  width: 400px;
+  border-radius: 10px;
+  outline: none;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-title {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-field {
+  margin-bottom: 15px;
+}
+
+.modal-input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.tag-input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.tag-input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.remove-tag-button {
+  margin-left: 5px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.remove-tag-button:hover {
+  color: #ff4d4d;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-button.cancel {
+  margin-left: 10px;
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.modal-button.cancel:hover {
+  background-color: #c0c0c0;
+}
+
+.modal-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.modal-button:hover {
+  background-color: #0056b3;
+}
