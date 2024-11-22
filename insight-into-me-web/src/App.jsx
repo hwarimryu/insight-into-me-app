@@ -20,7 +20,7 @@ function App() {
   return (
     <div className="app">
       {/* 헤더 */}
-      <Header title="로고나제목" onMenuToggle={toggleMenu} />
+      {/* <Header title="로고나제목" onMenuToggle={toggleMenu} /> */}
       {/* 메인 콘텐츠 */}
       <main className="app-main">
       <MainView />

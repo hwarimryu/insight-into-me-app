@@ -1,25 +1,20 @@
 import { useState, useEffect, useRef } from "react";
 import Calendar from "react-calendar";
+import { useSwipeable } from "react-swipeable";
 import "react-calendar/dist/Calendar.css";
 import "./CalendarView.css";
 import moment from "moment";
 
-function CalendarView() {
-    // Task 데이터 (더미)
-    const tasks = [
-      { date: "2024-11-25", tasks: ["Meeting", "Dinner"] },
-      { date: "2024-11-26", tasks: ["Conference"] },
-      { date: "2024-11-30", tasks: ["Workout", "Study", "Call"] },
-    ];
+function CalendarView({ tasks, selectedDate, setSelectedDate }) {
 
   // 특정 날짜에 Task가 있는지 확인
   const getTasksForDate = (date) => {
-    const dateString = date.toISOString().split("T")[0];
-    const taskData = tasks.find((t) => t.date === dateString);
-    return taskData ? taskData.tasks.length : 0; // Task 개수 반환
+    const dateString = date.toLocaleDateString();
+    const taskData = tasks.filter((t) => new Date(t.date).toLocaleDateString() === dateString);
+    return taskData ? taskData.length : 0; // Task 개수 반환
   };
 
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  // const [selectedDate, setSelectedDate] = useState(new Date());
   const [yearRange, setYearRange] = useState({
     startYear: selectedDate.getFullYear() - 3,
     endYear: selectedDate.getFullYear() + 3,
@@ -86,6 +81,28 @@ function CalendarView() {
     setSelectedDate(new Date(year, selectedMonth - 1, 1));
   };
 
+  // 다음 월로 이동
+  const goToNextMonth = () => {
+    const nextMonth = moment(selectedDate).add(1, "month").toDate();
+    setMonth(nextMonth);
+    setSelectedDate(nextMonth);
+  };
+
+  // 이전 월로 이동
+  const goToPreviousMonth = () => {
+    const previousMonth = moment(selectedDate).subtract(1, "month").toDate();
+    setMonth(previousMonth);
+    setSelectedDate(previousMonth);
+  };
+
+  // Swipeable 설정
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: goToNextMonth, // 왼쪽 스와이프 → 다음 월
+    onSwipedRight: goToPreviousMonth, // 오른쪽 스와이프 → 이전 월
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true, // 마우스 드래그로도 동작
+  });
+
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
     if (!isDropdownOpen) {
@@ -115,11 +132,11 @@ function CalendarView() {
 
   // 선택된 날짜인지 확인
   const isSelectedDate = (date) =>
-    selectedDate.toLocaleDateString().split("T")[0] === date.toLocaleDateString().split("T")[0];
+    selectedDate.toLocaleDateString() === date.toLocaleDateString();
 
 
   return (
-    <div className="calendar-container">
+    <div {...swipeHandlers} className="calendar-container">
       <div className="calendar-header">
         <div className="custom-dropdown" onClick={toggleDropdown}>
           <span className="selected-value">
@@ -168,21 +185,20 @@ function CalendarView() {
         formatDay={(locale, date) => null}
         tileContent={({ date }) => {
           const taskCount = getTasksForDate(date);
-          return taskCount > 0 ? (<>
-              { isSelectedDate(date)?
-              <abbr className="selected-date">{moment(date).format("DD")}</abbr> 
-                : <abbr className="">{moment(date).format("DD")}</abbr>}
-            <div className="dot-container">
-              {Array.from({ length: taskCount }).map((_, i) => (
-                <span key={i} className="task-dot"></span>
-              ))}
-            </div>
-          </>
-          ) : ( 
-          <>{ isSelectedDate(date)?
-              <abbr className="selected-date">{moment(date).format("DD")}</abbr> 
-                : <abbr className="">{moment(date).format("DD")}</abbr>}
-          </> );
+          return (
+            <>
+              <abbr className={isSelectedDate(date) ? "selected-date" : ""}>
+                {moment(date).format("DD")}
+              </abbr>
+              {taskCount > 0 && (
+                <div className="dot-container">
+                  {Array.from({ length: Math.min(taskCount, 3) }).map((_, i) => (
+                    <span key={i} className="task-dot"></span>
+                  ))}
+                  {taskCount > 3 && <span className="more-dots">+</span>}
+                </div>
+              )}
+            </> );
         }}
       />
     </div>
