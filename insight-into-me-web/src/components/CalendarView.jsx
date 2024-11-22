@@ -115,7 +115,7 @@ function CalendarView() {
 
   // 선택된 날짜인지 확인
   const isSelectedDate = (date) =>
-    selectedDate.toISOString().split("T")[0] === date.toISOString().split("T")[0];
+    selectedDate.toLocaleDateString().split("T")[0] === date.toLocaleDateString().split("T")[0];
 
 
   return (
