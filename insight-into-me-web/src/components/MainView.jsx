@@ -1,10 +1,23 @@
 import { useState } from "react";
+import { useSwipeable } from "react-swipeable";
 import CalendarView from "./CalendarView";
 import DailyTaskList from "./DailyTaskList";
 import "./MainView.css";
 
 function MainView() {
+  const [layoutState, setLayoutState] = useState("full"); // "full" 또는 "split"
   const [selectedDate, setSelectedDate] = useState(new Date());
+ // 스와이프 동작 핸들러
+ const swipeHandlers = useSwipeable({
+    onSwipedUp: () => setLayoutState("split"), // 위로 스와이프 → "split" 상태
+    onSwipedDown: () => setLayoutState("full"), // 아래로 스와이프 → "full" 상태
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true, // 마우스 드래그 동작도 지원
+  });
+
+  const onSelectedDateChanged = (date) => {
+    setSelectedDate(date)
+  }
 
   // 예제 Task 데이터
   const tasks = [
@@ -21,9 +34,11 @@ function MainView() {
   ];
 
   return (
-    <div className="main-view">
-      <CalendarView tasks={tasks} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-      <DailyTaskList tasks={tasks} selectedDate={selectedDate} />
+    <div {...swipeHandlers} className={`main-view ${layoutState}`}>
+      {/* CalendarView */}
+        <CalendarView layoutState = {layoutState} tasks={tasks} onSelectedDateChanged={onSelectedDateChanged} />
+      {/* DailyTaskList */}
+        <DailyTaskList layoutState = {layoutState} tasks={tasks} selectedDate={selectedDate} />
     </div>
   );
 }

@@ -3,7 +3,46 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
+  /* transition: all 0.3s ease; */
+  position: relative;
+  overflow: hidden;
+}
+
+.calendar-view {
+  width: 100%;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease, height 0.3s ease;
+}
+/* 
+.daily-task-list {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: transform 0.3s ease, height 0.3s ease;
+  overflow-y: auto;
+}
+ */
+
+.main-view.full .daily-task-list {
+  height: 0; /* DailyTaskList 숨김 */
+  /* transform: translateY(100%); */
+   /* 화면 아래로 이동 */
+  opacity: 0; /* 숨김 효과 */
+  pointer-events: none; /* 상호작용 차단 */
+}
+
+/* "split" 상태 */
+.main-view.split .calendar-view {
+  height: 66.67%; /* CalendarView 2/3 높이 */
+  /* transform: translateY(-33.33%);  */
+  /* 화면 위로 이동 */
+}
+
+.main-view.split .daily-task-list {
+  height: 33.33%; /* DailyTaskList 1/3 높이 */
+  /* transform: translateY(0); 화면 하단에 표시 */
+  opacity: 1; /* 보이도록 설정 */
+  pointer-events: auto; /* 상호작용 가능 */
 }

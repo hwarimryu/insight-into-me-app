@@ -5,7 +5,11 @@ import "react-calendar/dist/Calendar.css";
 import "./CalendarView.css";
 import moment from "moment";
 
-function CalendarView({ tasks, selectedDate, setSelectedDate }) {
+function CalendarView({ layoutState, tasks, onSelectedDateChanged }) {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [currentMonth, setCurrentMonth] = useState(new Date()); // 현재 활성화된 월
+  const [titleYear, setTitleYear] = useState(selectedDate.getFullYear());
+  const [titleMonth, setTitleMonth] = useState(selectedDate.getMonth() + 1);
 
   // 특정 날짜에 Task가 있는지 확인
   const getTasksForDate = (date) => {
@@ -14,16 +18,52 @@ function CalendarView({ tasks, selectedDate, setSelectedDate }) {
     return taskData ? taskData.length : 0; // Task 개수 반환
   };
 
-  // const [selectedDate, setSelectedDate] = useState(new Date());
+  // 날짜 클릭 시 처리
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    onSelectedDateChanged(date); // 부모 컴포넌트에 업데이트 전달
+  };
+
+    // 월 변경 시 연, 월 업데이트
+    const updateYearAndMonth = (date) => {
+      setTitleYear(date.getFullYear());
+      setTitleMonth(date.getMonth() + 1);
+    };
+
+// 월 변경 시 처리
+  const handleActiveStartDateChange = ({ activeStartDate }) => {
+    setCurrentMonth(activeStartDate);
+    updateYearAndMonth(activeStartDate)
+    onSelectedDateChanged(activeStartDate); // 부모 컴포넌트에 업데이트 전달
+  };
+
+  // 다음 월로 이동
+  const goToNextMonth = () => {
+    const nextMonth = moment(currentMonth).add(1, "month").toDate()
+    nextMonth.setDate(1)
+    setSelectedDate(nextMonth)
+    setCurrentMonth(nextMonth);
+    updateYearAndMonth(nextMonth)
+    onSelectedDateChanged(nextMonth); // 부모 컴포넌트에 업데이트 전달
+  };
+
+  // 이전 월로 이동
+  const goToPreviousMonth = () => {
+    const previousMonth = moment(currentMonth).subtract(1, "month").toDate();
+    previousMonth.setDate(1)
+    setSelectedDate(previousMonth)
+    setCurrentMonth(previousMonth);
+    updateYearAndMonth(previousMonth)
+    onSelectedDateChanged(previousMonth); // 부모 컴포넌트에 업데이트 전달
+  };
+
+
   const [yearRange, setYearRange] = useState({
     startYear: selectedDate.getFullYear() - 3,
     endYear: selectedDate.getFullYear() + 3,
   });
   
   const [years, setYears] = useState([]);
-
-  const [year, setYear] = useState(selectedDate.getFullYear());
-  const [month, setMonth] = useState(selectedDate.getMonth() + 1);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   
   const yearScrollRef = useRef(null);
@@ -62,37 +102,20 @@ function CalendarView({ tasks, selectedDate, setSelectedDate }) {
     }
   };
 
-  useEffect(() => {
-    setYear(selectedDate.getFullYear());
-    setMonth(selectedDate.getMonth() + 1);
-  }, [selectedDate]);
-
   const generateMonths = () => {
     return Array.from({ length: 12 }, (_, i) => i + 1); // 1~12월
   };
 
   const handleYearChange = (selectedYear) => {
-    setYear(selectedYear);
-    setSelectedDate(new Date(selectedYear, month - 1, 1));
+    setTitleYear(selectedYear);
+    setSelectedDate(new Date(selectedYear, titleMonth - 1, 1));
+    onSelectedDateChanged(selectedDate)
   };
 
   const handleMonthChange = (selectedMonth) => {
-    setMonth(selectedMonth);
-    setSelectedDate(new Date(year, selectedMonth - 1, 1));
-  };
-
-  // 다음 월로 이동
-  const goToNextMonth = () => {
-    const nextMonth = moment(selectedDate).add(1, "month").toDate();
-    setMonth(nextMonth);
-    setSelectedDate(nextMonth);
-  };
-
-  // 이전 월로 이동
-  const goToPreviousMonth = () => {
-    const previousMonth = moment(selectedDate).subtract(1, "month").toDate();
-    setMonth(previousMonth);
-    setSelectedDate(previousMonth);
+    setTitleMonth(selectedMonth);
+    setSelectedDate(new Date(titleYear, selectedMonth - 1, 1));
+    onSelectedDateChanged(selectedDate)
   };
 
   // Swipeable 설정
@@ -134,13 +157,12 @@ function CalendarView({ tasks, selectedDate, setSelectedDate }) {
   const isSelectedDate = (date) =>
     selectedDate.toLocaleDateString() === date.toLocaleDateString();
 
-
   return (
-    <div {...swipeHandlers} className="calendar-container">
+    <div {...swipeHandlers} className={`calendar-container ${layoutState}`}>
       <div className="calendar-header">
         <div className="custom-dropdown" onClick={toggleDropdown}>
           <span className="selected-value">
-            {`${year} . ${month.toString().padStart(2, "0")}`}
+            {`${titleYear} . ${titleMonth.toString().padStart(2, "0")}`}
           </span>
           {isDropdownOpen && (
             <div className="dropdown-menu">
@@ -152,7 +174,7 @@ function CalendarView({ tasks, selectedDate, setSelectedDate }) {
                     <div
                       key={y}
                       data-value={y}
-                      className={`dropdown-item ${y === year ? "active" : ""}`}
+                      className={`dropdown-item ${y === titleYear ? "active" : ""}`}
                       onClick={() => handleYearChange(y)}
                     >
                       {y.toString().padStart(2, "0")}
@@ -166,7 +188,7 @@ function CalendarView({ tasks, selectedDate, setSelectedDate }) {
                     <div
                       key={m}
                       data-value={m}
-                      className={`dropdown-item ${m === month ? "active" : ""}`}
+                      className={`dropdown-item ${m === titleMonth ? "active" : ""}`}
                       onClick={() => handleMonthChange(m)}
                     >
                       {m.toString().padStart(2, "0")}
@@ -179,8 +201,10 @@ function CalendarView({ tasks, selectedDate, setSelectedDate }) {
         </div>
       </div>
       <Calendar
-        value={selectedDate} // 오늘 날짜 기본 선택
-        onChange={setSelectedDate}
+        value={selectedDate} // 현재 선택된 날짜
+        onChange={handleDateChange} // 날짜 선택 이벤트
+        onActiveStartDateChange={handleActiveStartDateChange} // 활성화된 월 변경 이벤트
+        activeStartDate={currentMonth} // 현재 활성화된 월
         showNavigation={false} /* 상단 기본 연월 숨김 */
         formatDay={(locale, date) => null}
         tileContent={({ date }) => {

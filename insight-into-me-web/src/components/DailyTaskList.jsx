@@ -1,6 +1,6 @@
 import "./DailyTaskList.css";
 
-function DailyTaskList({ tasks, selectedDate }) {
+function DailyTaskList({ layoutState, tasks, selectedDate }) {
   const formattedDate = selectedDate.toLocaleDateString()
 
   // 선택된 날짜의 Task 필터링
@@ -9,8 +9,13 @@ function DailyTaskList({ tasks, selectedDate }) {
   .sort((a, b) => a.startTime.localeCompare(b.startTime));
 
   return (
-    <div className="daily-task-list">
-      <h3>{formattedDate}의 Task</h3>
+    <div className = {`daily-task-list ${layoutState}`}>
+      <h4>{selectedDate.toLocaleDateString("ko-KR", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    weekday: "short",
+  })}</h4>
       <div className="task-list-scroll">
         {tasksForDate.length > 0 ? (
           <ul>

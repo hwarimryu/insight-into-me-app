@@ -1,6 +1,6 @@
 .calendar-container {
   width: 100%; /* 화면 전체 너비 */
-  height: 70vh; /* 화면 전체 높이 */
+  height: 100%; /* 화면 전체 높이 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -47,7 +47,6 @@
   border: 1px solid #ddd;
   border-radius: 5px;
   z-index: 1000;
-  /* padding-bottom: 5px; */
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -106,17 +105,37 @@
   height: 100%;
 }
 
-.react-calendar__month-view>div>div {
-  height: 60vh;
-}
-
 .react-calendar__month-view__days {
   height: 100%;
 }
 
 .react-calendar__month-view__days__day {
-  position:relative;
+  transition: height 0.3s ease;
+
+  /* position:relative; */
   align-content: start;
+}
+
+/* "full" 상태 */
+.main-view.full .calendar-view {
+  height: 100%; /* CalendarView 전체 화면 */
+  /* transform: translateY(0); */
+   /* 원래 위치 */
+}
+
+.main-view.full .react-calendar__month-view__days__day {
+  height: 15vh; /* 날짜 칸 기본 높이 */
+}
+
+/* "split" 상태 */
+.main-view.split .calendar-view {
+  height: 66.67%; /* CalendarView 2/3 높이 */
+  /* transform: translateY(-33.33%);  */
+  /* 화면 위로 이동 */
+}
+
+.main-view.split .react-calendar__month-view__days__day {
+  height: 10vh; /* 날짜 칸 축소된 높이 */
 }
 
 /* 날짜 셀 내부 레이아웃 */
