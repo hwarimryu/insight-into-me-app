@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Header from "./components/Header";
-import CalendarView from "./components/CalendarView";
+import MainView from "./components/MainView";
 import TaskFormModal from "./components/TaskFormModal";
 import "./App.css";
 
@@ -23,7 +23,7 @@ function App() {
       <Header title="로고나제목" onMenuToggle={toggleMenu} />
       {/* 메인 콘텐츠 */}
       <main className="app-main">
-        <CalendarView />
+      <MainView />
       </main>
       {/* Task 추가 버튼 */}
       <button className="task-add-button" onClick={toggleTaskModal}>
