@@ -1,115 +1,39 @@
-import { useState } from "react";
-import Modal from "react-modal";
-import DateTimePicker from "react-datetime-picker";
+import React from "react";
 import "./TaskFormModal.css";
 
-Modal.setAppElement("#root");
-
-function TaskFormModal({ isOpen, onClose, addTask }) {
-  const [text, setText] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [tags, setTags] = useState([]);
-  const [tagInput, setTagInput] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (text.trim() && startDate && endDate) {
-      addTask({
-        id: Date.now(),
-        text,
-        startDate,
-        endDate,
-        tags,
-        completed: false,
-      });
-      setText("");
-      setStartDate(new Date());
-      setEndDate(new Date());
-      setTags([]);
-      onClose();
-    }
-  };
-
-  const handleTagInput = (e) => {
-    setTagInput(e.target.value);
-  };
-
-  const handleTagKeyPress = (e) => {
-    if (e.key === "Enter" && tagInput.trim()) {
-      e.preventDefault();
-      if (!tags.includes(tagInput.trim())) {
-        setTags([...tags, tagInput.trim()]);
-      }
-      setTagInput("");
-    }
-  };
-
-  const removeTag = (tag) => {
-    setTags(tags.filter((t) => t !== tag));
-  };
-
+function TaskFormModal({ onClose }) {
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={onClose}
-      className="modal"
-      overlayClassName="modal-overlay"
-    >
-      <h2 className="modal-title">Add Task</h2>
-      <form onSubmit={handleSubmit} className="modal-form">
-        <input
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder="Task description"
-          className="modal-input"
-        />
-        <div className="modal-field">
-          <label>Start Date & Time:</label>
-          <DateTimePicker value={startDate} onChange={setStartDate} />
-        </div>
-        <div className="modal-field">
-          <label>End Date & Time:</label>
-          <DateTimePicker value={endDate} onChange={setEndDate} />
-        </div>
-        <div className="modal-field">
-          <label>Tags:</label>
-          <div className="tag-input-container">
-            <input
-              type="text"
-              value={tagInput}
-              onChange={handleTagInput}
-              onKeyPress={handleTagKeyPress}
-              placeholder="Press Enter to add a tag"
-              className="tag-input"
-            />
-            <div className="tags-list">
-              {tags.map((tag, index) => (
-                <span key={index} className="tag">
-                  {tag}
-                  <button
-                    type="button"
-                    className="remove-tag-button"
-                    onClick={() => removeTag(tag)}
-                  >
-                    ×
-                  </button>
-                </span>
-              ))}
-            </div>
+    <div className="modal-overlay">
+      <div className="modal-content">
+        <h2>Task 추가</h2>
+        <form>
+          <div className="form-group">
+            <label>Task 제목</label>
+            <input type="text" placeholder="Task 제목 입력" />
           </div>
-        </div>
-        <div className="modal-actions">
-          <button type="submit" className="modal-button">
-            Add Task
-          </button>
-          <button type="button" onClick={onClose} className="modal-button cancel">
-            Cancel
-          </button>
-        </div>
-      </form>
-    </Modal>
+          <div className="form-group">
+            <label>시작 일시</label>
+            <input type="datetime-local" />
+          </div>
+          <div className="form-group">
+            <label>종료 일시</label>
+            <input type="datetime-local" />
+          </div>
+          <div className="form-group">
+            <label>태그</label>
+            <input type="text" placeholder="태그 입력 (쉼표로 구분)" />
+          </div>
+          <div className="modal-buttons">
+            <button type="button" onClick={onClose} className="cancel-button">
+              취소
+            </button>
+            <button type="submit" className="add-button">
+              추가
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 }
 

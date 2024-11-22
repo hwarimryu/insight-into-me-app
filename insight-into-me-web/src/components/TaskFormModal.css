@@ -1,110 +1,78 @@
-.modal {
-  position: relative;
-  background: white;
-  padding: 20px;
-  width: 400px;
-  border-radius: 10px;
-  outline: none;
-}
-
+/* 모달 오버레이 */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-}
-
-.modal-title {
-  margin-bottom: 20px;
-  font-size: 18px;
-}
-
-.modal-form {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-.modal-field {
+/* 모달 콘텐츠 */
+.modal-content {
+  background-color: white;
+  width: 90%;
+  max-width: 500px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  display: flex; /* 라벨과 인풋을 가로로 정렬 */
+  align-items: center;
   margin-bottom: 15px;
 }
 
-.modal-input {
+.form-group label {
+  flex: 0 0 100px; /* 라벨의 고정 너비 */
+  font-weight: bold;
+}
+
+.form-group input {
+  flex: 1; /* 입력 필드는 남은 공간 채우기 */
   padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.tag-input-container {
+/* 모달 버튼 */
+.modal-buttons {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
 }
 
-.tag-input {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-
-.tags-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-
-.tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 5px 10px;
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  font-size: 12px;
-}
-
-.remove-tag-button {
-  margin-left: 5px;
-  background: transparent;
+.cancel-button,
+.add-button {
+  padding: 10px 20px;
   border: none;
-  color: white;
-  font-size: 14px;
+  border-radius: 4px;
   cursor: pointer;
 }
 
-.remove-tag-button:hover {
-  color: #ff4d4d;
+.cancel-button {
+  background-color: #ccc;
+  color: black;
 }
 
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.modal-button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.modal-button.cancel {
-  margin-left: 10px;
-  background-color: #e0e0e0;
-  color: #333;
-}
-
-.modal-button.cancel:hover {
-  background-color: #c0c0c0;
-}
-
-.modal-button {
+.add-button {
   background-color: #007bff;
   color: white;
 }
 
-.modal-button:hover {
+.cancel-button:hover {
+  background-color: #aaa;
+}
+
+.add-button:hover {
   background-color: #0056b3;
 }

@@ -13,3 +13,30 @@
   display: flex;
 }
 
+
+/* 오른쪽 하단 Task 추가 버튼 */
+.task-add-button {
+  position: fixed;
+  bottom: 20px; /* 화면 하단에서 20px */
+  right: 20px; /* 화면 오른쪽에서 20px */
+  width: 60px;
+  background-color: #804aff;
+  color: white;
+  font-size: 20px;
+  line-height: 60px;
+  font-weight: bold;
+  border: none;
+  border-radius: 50%; /* 동그란 버튼 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 0px;
+}
+
+.task-add-button:hover {
+  background-color: #4e2c9c; /* Hover 시 색상 변경 */
+}
+

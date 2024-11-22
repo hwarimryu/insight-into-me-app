@@ -1,13 +1,20 @@
 import { useState } from "react";
 import Header from "./components/Header";
 import CalendarView from "./components/CalendarView";
+import TaskFormModal from "./components/TaskFormModal";
 import "./App.css";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const toggleTaskModal = () => {
+    setIsTaskModalOpen(!isTaskModalOpen);
   };
 
   return (
@@ -18,7 +25,12 @@ function App() {
       <main className="app-main">
         <CalendarView />
       </main>
-      {/* 햄버거 메뉴 사이드바 */}
+      {/* Task 추가 버튼 */}
+      <button className="task-add-button" onClick={toggleTaskModal}>
+        +
+      </button>
+      {/* Task 추가 모달 */}
+      {isTaskModalOpen && <TaskFormModal onClose={toggleTaskModal} />}
     </div>
   );
 }
