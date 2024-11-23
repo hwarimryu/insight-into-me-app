@@ -1,0 +1,30 @@
+.task-item {
+  display: flex;
+  width: 100%;
+  align-items: start;
+  font-size: 12px;
+  padding: 4px 8px;
+  box-sizing: border-box;
+  background-color: #e7e2fa;
+  border: 1px solid #d2caf0;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.task-item.completed {
+  opacity: 0.6;
+  background-color: #e6e6e7;
+  border: 1px solid #dfdfe2;
+}
+
+.task-item:hover {
+  background-color: #deccff;
+}
+
+.task-title {
+  color: #444;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow:hidden ;
+  text-overflow: ellipsis;
+}

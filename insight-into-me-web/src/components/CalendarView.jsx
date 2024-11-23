@@ -5,7 +5,7 @@ import "react-calendar/dist/Calendar.css";
 import "./CalendarView.css";
 import moment from "moment";
 
-function CalendarView({ layoutState, tasks, onSelectedDateChanged }) {
+function CalendarView({layoutState, tasks, onSelectedDateChanged }) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(new Date()); // 현재 활성화된 월
   const [titleYear, setTitleYear] = useState(selectedDate.getFullYear());
@@ -24,13 +24,13 @@ function CalendarView({ layoutState, tasks, onSelectedDateChanged }) {
     onSelectedDateChanged(date); // 부모 컴포넌트에 업데이트 전달
   };
 
-    // 월 변경 시 연, 월 업데이트
-    const updateYearAndMonth = (date) => {
-      setTitleYear(date.getFullYear());
-      setTitleMonth(date.getMonth() + 1);
-    };
+  // 월 변경 시 연, 월 업데이트
+  const updateYearAndMonth = (date) => {
+    setTitleYear(date.getFullYear());
+    setTitleMonth(date.getMonth() + 1);
+  };
 
-// 월 변경 시 처리
+  // 월 변경 시 처리
   const handleActiveStartDateChange = ({ activeStartDate }) => {
     setCurrentMonth(activeStartDate);
     updateYearAndMonth(activeStartDate)
