@@ -17,7 +17,7 @@ function TimelineView({ tasks, selectedDate }) {
   // 시간 표시를 위한 범위 생성
   const generateTimeSlots = () => {
     const timeSlots = [];
-    for (let hour = 0; hour < 24; hour++) {
+    for (let hour = 0; hour <= 24; hour++) {
       const time = `${String(hour).padStart(2, "0")}:00`;
       timeSlots.push(time);
     }

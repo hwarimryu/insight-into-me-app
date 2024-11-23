@@ -8,7 +8,7 @@
   overflow: hidden;
 }
 
-/* monthly <-> daily viewType toggle button */
+/* monthly <-> timeline viewType toggle button */
 .main-view-type-toggle {
   position: absolute;
   top: 10px;

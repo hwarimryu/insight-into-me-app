@@ -4,11 +4,12 @@ import MonthlyView from "./MonthlyView";
 import DailyView from "./DailyView";
 
 function MainView() {
-  const [mainViewType, setMainViewType] = useState("monthly"); // "monthly" 또는 "daily"
+  const [mainViewType, setMainViewType] = useState("monthly"); // "monthly" 또는 "timeline"
   const [selectedDate, setSelectedDate] = useState(new Date());
 
+
   const toggleViewType = () => {
-    setMainViewType((prevType) => (prevType === "monthly" ? "daily" : "monthly"));
+    setMainViewType((prevType) => (prevType === "monthly" ? "timeline" : "monthly"));
   };
 
   const onSelectedDateChanged = (date) => {
@@ -34,7 +35,7 @@ function MainView() {
       {/* 상단의 ViewType 전환 버튼 */}
       <div className="main-view-type-toggle">
         <button onClick={toggleViewType}>
-          {mainViewType === "monthly" ? "Daily View" : "Monthly View"}
+          {mainViewType === "monthly" ? "Timeline View" : "Monthly View"}
         </button>
       </div>
 
@@ -46,7 +47,7 @@ function MainView() {
           onSelectedDateChanged={onSelectedDateChanged}
           layoutState={mainViewType} />
       )}
-      {mainViewType === "daily" && <DailyView tasks={tasks} selectedDate={selectedDate} />}
+      {mainViewType === "timeline" && <DailyView tasks={tasks} selectedDate={selectedDate} />}
     </div>
   );
 }

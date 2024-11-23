@@ -132,6 +132,16 @@
   height: 10vh; /* 날짜 칸 축소된 높이 */
 }
 
+/* "task-only" 상태 */
+.calendar-container.task-only {
+  height: 0;
+  opacity: 0%;
+}
+
+.calendar-container.task-only * {
+  height: 0vh; /* 날짜 칸 축소된 높이 */
+}
+
 /* 날짜 셀 내부 레이아웃 */
 .react-calendar__tile {
   display: flex;

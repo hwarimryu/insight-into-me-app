@@ -8,7 +8,6 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
 
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
