@@ -14,7 +14,7 @@
 
 /* 모달 콘텐츠 */
 .modal-content {
-  background-color: white;
+  background-color: var(--background-color);
   width: 90%;
   max-width: 500px;
   padding: 20px;
@@ -60,19 +60,19 @@ h2 {
 }
 
 .cancel-button {
-  background-color: #ccc;
+  background-color: var(--button-cancel-color);
   color: black;
 }
 
 .add-button {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--button-primary-color);
+  color: var(--button-text-color);
 }
 
 .cancel-button:hover {
-  background-color: #aaa;
+  background-color: var(--button-cancel-color);
 }
 
 .add-button:hover {
-  background-color: #0056b3;
+  background-color: var(--button-primary-color);
 }

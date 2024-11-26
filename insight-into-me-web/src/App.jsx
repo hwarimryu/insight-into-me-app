@@ -11,6 +11,18 @@ import "./App.css";
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const [tasks, setTasks] = useState([
+    { date: "2024-11-25", startTime: "17:00", endTime: "19:00", title: "Dinner with Client",completed: false  },
+    { date: "2024-11-25", startTime: "12:00", endTime: "13:00",title: "낮잠",completed: true  },
+    { date: "2024-11-25", startTime: "12:30", endTime: "13:00",title: "점심식사",completed: true  },
+    { date: "2024-11-25", startTime: "12:30", endTime: "12:50",title: "점심식사" ,completed: false   },
+    { date: "2024-11-25", startTime: "09:00", endTime: "11:30",title: "Meeting with Team", tag: ["Meeting", "Dinner"] ,completed: false},
+    { date: "2024-11-25", startTime: "20:30", endTime: "21:10",title: "운동" ,completed: false},
+    { date: "2024-11-26", startTime: "10:00", endTime: "13:00",title: "Conference Call", tag: ["Conference"] ,completed: false},
+    { date: "2024-11-26", startTime: "12:00", endTime: "13:00",title: "낮잠" ,completed: true},
+    { date: "2024-11-26", startTime: "12:30", endTime: "13:00",title: "점심식사" ,completed: false},
+    { date: "2024-11-30", startTime: "07:00", endTime: "10:00",title: "Workout Session", tag: ["Workout", "Study", "Call"],completed: false },
+  ]); // Task 상태
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -20,6 +32,11 @@ function App() {
     setIsTaskModalOpen(!isTaskModalOpen);
   };
 
+    // Task 추가 핸들러
+    const handleAddTask = (newTask) => {
+      setTasks((prevTasks) => [...prevTasks, newTask]);
+    };
+
   return (
     <ThemeProvider>
     <div className="app">
@@ -28,14 +45,14 @@ function App() {
       {/* <Header title="로고나제목" onMenuToggle={toggleMenu} /> */}
       {/* 메인 콘텐츠 */}
       <main className="app-main">
-      <MainView />
+      <MainView tasks={tasks}/>
       </main>
       {/* Task 추가 버튼 */}
       <button className="task-add-button" onClick={toggleTaskModal}>
         +
       </button>
       {/* Task 추가 모달 */}
-      {isTaskModalOpen && <TaskFormModal onClose={toggleTaskModal} />}
+      {isTaskModalOpen && <TaskFormModal onClose={toggleTaskModal} onAddTask={handleAddTask}/>}
     </div>
     </ThemeProvider>
   );
