@@ -33,7 +33,7 @@ function MainView({tasks}) {
           onSelectedDateChanged={onSelectedDateChanged}
           layoutState={mainViewType} />
       )}
-      {mainViewType === "timeline" && <DailyView tasks={tasks} selectedDate={selectedDate} />}
+      {mainViewType === "timeline" && <DailyView tasks={tasks} selectedDate={selectedDate} onDateChange={onSelectedDateChanged}/>}
     </div>
   );
 }

@@ -1,10 +1,14 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import TimelineTaskItem from "./TimelineTaskItem";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import "./TimelineView.css";
 
-function TimelineView({ tasks, selectedDate }) {
+function TimelineView({ tasks, selectedDate, onDateChange }) {
   const timelineRef = useRef(null);
   const nowRef = useRef(null);
+
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
   // 선택된 날짜와 현재 시간
   const formattedDate = selectedDate.toLocaleDateString();
@@ -46,7 +50,21 @@ function TimelineView({ tasks, selectedDate }) {
     return (
       <div className="timeline-view" ref={timelineRef}>
       {/* 상단 제목 */}
-      <div className="timeline-title">{formattedDate}</div>
+      <div className="timeline-title">
+      <button onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}>
+      {formattedDate}
+      </button>
+        {isDatePickerOpen && (
+          <DatePicker
+            selected={selectedDate}
+            onChange={(date) => {
+              onDateChange(date);
+              setIsDatePickerOpen(false);
+            }}
+            inline
+          />
+        )}
+      </div>
 
       <div className="timeline-container">
         <div className="timeline-body" ref={timelineRef}>
