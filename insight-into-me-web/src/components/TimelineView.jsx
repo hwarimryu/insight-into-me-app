@@ -1,17 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import TimelineTaskItem from "./TimelineTaskItem";
 import DatePicker from "react-datepicker";
-import TaskDetailsModal from "./TaskDetailsModal";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./TimelineView.css";
 
-function TimelineView({ tasks, selectedDate, onDateChange }) {
+function TimelineView({ tasks, selectedDate, onDateChange, onTaskSelect }) {
   const timelineRef = useRef(null);
   const nowRef = useRef(null);
-
-  const [selectedTask, setSelectedTask] = useState(null);
-
 
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
@@ -93,9 +89,8 @@ function TimelineView({ tasks, selectedDate, onDateChange }) {
                   now.toTimeString().split(" ")[0] < task.endTime
                     ? nowRef
                     : null
-                }
-                onClick={() => setSelectedTask(task)}
-              >
+                  }
+                  onClick={() => onTaskSelect(task)} >
                 <TimelineTaskItem
                   key={index}
                   startTime={task.startTime}
@@ -155,12 +150,13 @@ function TimelineView({ tasks, selectedDate, onDateChange }) {
           })}
 
            {/* TaskDetailsModal */}
-          {selectedTask && (
+          {/* {selectedTask && (
           <TaskDetailsModal
             task={selectedTask}
             onClose={() => setSelectedTask(null)}
+            onComplete={onCompleteTask}
           />
-          )}
+          )} */}
           </div>
         </div>
       </div>

@@ -1,10 +1,10 @@
 import TimelineView from "./TimelineView";
 import "./DailyView.css";
 
-function DailyView({ tasks, selectedDate, onDateChange, onCompleteTask }) {
+function DailyView({ tasks, selectedDate, onDateChange, onTaskSelect }) {
   return (
     <div className="daily-view">
-      <TimelineView tasks={tasks} selectedDate={selectedDate} onDateChange={onDateChange} onCompleteTask={onCompleteTask}/>
+      <TimelineView tasks={tasks} selectedDate={selectedDate} onDateChange={onDateChange} onTaskSelect={onTaskSelect}/>
     </div>
   );
 }

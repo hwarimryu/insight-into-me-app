@@ -1,6 +1,18 @@
+import { useEffect } from "react";
 import "./TaskDetailsModal.css";
 
 function TaskDetailsModal({ task, onClose, onComplete }) {
+  useEffect(() => {
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = "hidden";
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+    };
+  }, []);
+  
 const handleComplete = () => {
     onComplete(task.id); // 완료 상태 업데이트
     onClose(); // 모달 닫기
@@ -17,7 +29,10 @@ const handleComplete = () => {
           <p><strong>Completed:</strong> {task.completed ? "Yes" : "No"}</p>
         </div>
         <div className="modal-buttons">
-          <button className="complete-button" onClick={handleComplete} disabled={task.completed}>
+          <button 
+          className="complete-button" 
+          onClick={handleComplete} 
+          disabled={task.completed} >
             {task.completed ? "Completed" : "Mark as Complete"}
           </button>
           <button className="close-button" onClick={onClose}>

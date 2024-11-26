@@ -6,11 +6,15 @@ import Header from "./components/Header";
 import ThemeToggle from "./components/ThemeToggle";
 import MainView from "./components/MainView";
 import TaskFormModal from "./components/TaskFormModal";
+import TaskDetailsModal from "./components/TaskDetailsModal";
+
 import "./App.css";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null); // TaskDetailsModal 상태
+
   const [tasks, setTasks] = useState([
     { id: 1, date: "2024-11-25", startTime: "17:00", endTime: "19:00", title: "Dinner with Client",completed: false  },
     { id: 2, date: "2024-11-25", startTime: "12:00", endTime: "13:00",title: "낮잠",completed: true  },
@@ -54,7 +58,8 @@ function App() {
       {/* <Header title="로고나제목" onMenuToggle={toggleMenu} /> */}
       {/* 메인 콘텐츠 */}
       <main className="app-main">
-      <MainView tasks={tasks} onCompleteTask={handleCompleteTask}/>
+      <MainView tasks={tasks} 
+      onTaskSelect={setSelectedTask}/>
       </main>
       {/* Task 추가 버튼 */}
       <button className="task-add-button" onClick={toggleTaskModal}>
@@ -62,6 +67,13 @@ function App() {
       </button>
       {/* Task 추가 모달 */}
       {isTaskModalOpen && <TaskFormModal onClose={toggleTaskModal} onAddTask={handleAddTask}/>}
+      {selectedTask && (
+          <TaskDetailsModal
+            task={selectedTask}
+            onClose={() => setSelectedTask(null)}
+            onComplete={handleCompleteTask}
+          />
+        )}
     </div>
     </ThemeProvider>
   );

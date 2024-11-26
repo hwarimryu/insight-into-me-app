@@ -3,7 +3,7 @@ import "./MainView.css";
 import MonthlyView from "./MonthlyView";
 import DailyView from "./DailyView";
 
-function MainView({tasks, onCompleteTask}) {
+function MainView({tasks, onTaskSelect}) {
   const [mainViewType, setMainViewType] = useState("monthly"); // "monthly" 또는 "timeline"
   const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -33,7 +33,11 @@ function MainView({tasks, onCompleteTask}) {
           onSelectedDateChanged={onSelectedDateChanged}
           layoutState={mainViewType} />
       )}
-      {mainViewType === "timeline" && <DailyView tasks={tasks} selectedDate={selectedDate} onDateChange={onSelectedDateChanged} onCompleteTask={onCompleteTask}/>}
+      {mainViewType === "timeline" &&
+       <DailyView tasks={tasks} 
+      selectedDate={selectedDate} 
+      onDateChange={onSelectedDateChanged} 
+      onTaskSelect={onTaskSelect}/>}
     </div>
   );
 }
