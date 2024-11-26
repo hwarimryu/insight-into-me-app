@@ -6,6 +6,7 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  background-color: var(--background-color);
 }
 
 /* monthly <-> timeline viewType toggle button */
@@ -19,7 +20,7 @@
 .main-view-type-toggle button {
   padding: 8px 16px;
   font-size: 14px;
-  background-color: var(--primary-color);
+  background-color: var(--button-primary-color);
   color: var(--button-text-color);
   border: none;
   border-radius: 4px;

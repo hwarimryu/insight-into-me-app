@@ -3,8 +3,13 @@
     --primary-color: #804aff;
     --secondary-color: #ac96fb;
     --background-color: #fbf8ef;
+    --background-selected-color: #e7e6e6;
     --primary-color-red: #ef5350;
     --text-color: #333333;
+    --text-color-white: #f8f9fa;
+    --text-secondary-color: #757575;
+
+    --button-primary-color: #804aff;
     --button-text-color: #f8f9fa;
     --task-completed-color: #d9f7be;
     --task-border-color: #52c41a;
@@ -15,8 +20,12 @@
     --primary-color: #ac96fb;
     --secondary-color: #804aff;
     --background-color: #121212;
+    --background-selected-color: #333333;
     --text-color: #f8f9fa;
-    --button-text-color: #333333;
+    --text-secondary-color: #757575;
+
+    --button-primary-color: #804aff;
+    --button-text-color: #f8f9fa;
     --task-completed-color: #444;
     --task-border-color: #666;
   }
