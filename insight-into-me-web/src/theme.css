@@ -1,0 +1,23 @@
+/* 기본 테마 */
+:root {
+    --primary-color: #804aff;
+    --secondary-color: #ac96fb;
+    --background-color: #fbf8ef;
+    --primary-color-red: #ef5350;
+    --text-color: #333333;
+    --button-text-color: #f8f9fa;
+    --task-completed-color: #d9f7be;
+    --task-border-color: #52c41a;
+  }
+  
+  /* 다크 테마 */
+  [data-theme="dark"] {
+    --primary-color: #ac96fb;
+    --secondary-color: #804aff;
+    --background-color: #121212;
+    --text-color: #f8f9fa;
+    --button-text-color: #333333;
+    --task-completed-color: #444;
+    --task-border-color: #666;
+  }
+  

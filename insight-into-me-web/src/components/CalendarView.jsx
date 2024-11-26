@@ -107,14 +107,18 @@ function CalendarView({layoutState, tasks, onSelectedDateChanged }) {
   };
 
   const handleYearChange = (selectedYear) => {
+    const newDate = new Date(selectedYear, titleMonth - 1, 1);
     setTitleYear(selectedYear);
-    setSelectedDate(new Date(selectedYear, titleMonth - 1, 1));
+    setSelectedDate(newDate);
+    setCurrentMonth(newDate);
     onSelectedDateChanged(selectedDate)
   };
 
   const handleMonthChange = (selectedMonth) => {
+    const newDate = new Date(titleYear, selectedMonth - 1, 1);
     setTitleMonth(selectedMonth);
-    setSelectedDate(new Date(titleYear, selectedMonth - 1, 1));
+    setSelectedDate(newDate);
+    setCurrentMonth(newDate);
     onSelectedDateChanged(selectedDate)
   };
 
@@ -133,7 +137,7 @@ function CalendarView({layoutState, tasks, onSelectedDateChanged }) {
       setTimeout(() => {
         if (yearScrollRef.current) {
           const yearElement = yearScrollRef.current.querySelector(
-            `.dropdown-item[data-value="${year}"]`
+            `.dropdown-item[data-value="${titleYear}"]`
           );
           if (yearElement) {
             yearScrollRef.current.scrollTop =
@@ -142,7 +146,7 @@ function CalendarView({layoutState, tasks, onSelectedDateChanged }) {
         }
         if (monthScrollRef.current) {
           const monthElement = monthScrollRef.current.querySelector(
-            `.dropdown-item[data-value="${month}"]`
+            `.dropdown-item[data-value="${titleMonth}"]`
           );
           if (monthElement) {
             monthScrollRef.current.scrollTop =

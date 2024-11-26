@@ -100,8 +100,8 @@
 .current-time-marker {
   position: absolute;
   width: 85vw;
-  border: 1px solid red;
+  border: 1px solid var(--primary-color-red);
   z-index: 3;
   transform: translateY(-50%);
-  opacity: 20%;
+  opacity: 40%;
 }

@@ -43,7 +43,7 @@
   transform: translateX(-50%);
   width: 200px; /* 드롭다운 너비 */
   display: flex;
-  background-color: white;
+  background-color: none;
   border: 1px solid #ddd;
   border-radius: 5px;
   z-index: 1000;
@@ -80,13 +80,13 @@
 }
 
 .dropdown-item:hover {
-  background-color: #804aff;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--button-text-color);
 }
 
 .dropdown-item.active {
-  background-color: #804aff;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--button-text-color);
   font-weight: bold;
 }
 
@@ -164,7 +164,7 @@
   width: 5px;
   height: 5px;
   margin: 0 2px;
-  background-color: #ef5350;
+  background-color: var(--primary-color-red);
   border-radius: 50%;
 }
 
@@ -173,7 +173,7 @@
   margin: 0 2px;
   font-size: 15px;
   font-weight: bold;
-  color: #ef5350;
+  color: var(--primary-color-red);
   line-height: 5px;
 }
 
@@ -203,7 +203,7 @@
   width: 100%;
   text-align: center;
   align-items: center;
-  background-color: #ef5350;
+  background-color: var(--primary-color-red);
   border-radius: 5px;
   color: white;
 }

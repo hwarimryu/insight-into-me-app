@@ -1,4 +1,7 @@
 import { useState } from "react";
+import ThemeProvider from "./ThemeProvider";
+import "./theme.css"; // 테마 정의한 CSS 파일
+
 import Header from "./components/Header";
 import MainView from "./components/MainView";
 import TaskFormModal from "./components/TaskFormModal";
@@ -17,6 +20,7 @@ function App() {
   };
 
   return (
+    <ThemeProvider>
     <div className="app">
       {/* 헤더 */}
       {/* <Header title="로고나제목" onMenuToggle={toggleMenu} /> */}
@@ -31,6 +35,7 @@ function App() {
       {/* Task 추가 모달 */}
       {isTaskModalOpen && <TaskFormModal onClose={toggleTaskModal} />}
     </div>
+    </ThemeProvider>
   );
 }
 
