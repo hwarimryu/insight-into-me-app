@@ -1,11 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
+import { TaskStateContext } from "./MainView";
 import TimelineTaskItem from "./TimelineTaskItem";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./TimelineView.css";
 
-function TimelineView({ tasks, selectedDate, onDateChange, onTaskSelect }) {
+function TimelineView({ selectedDate, onDateChange, onTaskSelect }) {
+  const tasks = useContext(TaskStateContext);
   const timelineRef = useRef(null);
   const nowRef = useRef(null);
 

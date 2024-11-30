@@ -1,6 +1,11 @@
+import { useContext } from "react";
+import { TaskStateContext } from "./MainView";
+
+
 import "./DailyTaskList.css";
 
-function DailyTaskList({tasks, selectedDate }) {
+function DailyTaskList({ selectedDate }) {
+  const tasks = useContext(TaskStateContext)
   const formattedDate = selectedDate.toLocaleDateString()
 
   // 선택된 날짜의 Task 필터링

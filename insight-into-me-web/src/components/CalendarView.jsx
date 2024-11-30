@@ -1,11 +1,15 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import Calendar from "react-calendar";
+import Header from "./Header";
+import Button from "./Button";
+import { TaskStateContext } from "./MainView";
 import { useSwipeable } from "react-swipeable";
 import "react-calendar/dist/Calendar.css";
 import "./CalendarView.css";
 import moment from "moment";
 
-function CalendarView({layoutState, tasks, onSelectedDateChanged }) {
+function CalendarView({layoutState, onSelectedDateChanged }) {
+  const tasks = useContext(TaskStateContext)
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(new Date()); // 현재 활성화된 월
   const [titleYear, setTitleYear] = useState(selectedDate.getFullYear());
@@ -163,47 +167,50 @@ function CalendarView({layoutState, tasks, onSelectedDateChanged }) {
 
   return (
     <div {...swipeHandlers} className={`calendar-container ${layoutState}`}>
-      <div className="calendar-header">
-        <div className="custom-dropdown" onClick={toggleDropdown}>
-          <span className="selected-value">
-            {`${titleYear} . ${titleMonth.toString().padStart(2, "0")}`}
-          </span>
-          {isDropdownOpen && (
-            <div className="dropdown-menu">
-              <div className="dropdown-column">
-                <div className="dropdown-scroll" 
-                    ref={yearScrollRef}
-                    onScroll= {handleYearScroll}>
-                  {years.map((y) => (
-                    <div
-                      key={y}
-                      data-value={y}
-                      className={`dropdown-item ${y === titleYear ? "active" : ""}`}
-                      onClick={() => handleYearChange(y)}
-                    >
-                      {y.toString().padStart(2, "0")}
-                    </div>
-                  ))}
+      <Header title={
+          <div className="calendar-header">
+          <div className="custom-dropdown" onClick={toggleDropdown}>
+            <span className="selected-value">
+              {`${titleYear} . ${titleMonth.toString().padStart(2, "0")}`}
+            </span>
+            {isDropdownOpen && (
+              <div className="dropdown-menu">
+                <div className="dropdown-column">
+                  <div className="dropdown-scroll" 
+                      ref={yearScrollRef}
+                      onScroll= {handleYearScroll}>
+                    {years.map((y) => (
+                      <div
+                        key={y}
+                        data-value={y}
+                        className={`dropdown-item ${y === titleYear ? "active" : ""}`}
+                        onClick={() => handleYearChange(y)}
+                      >
+                        {y.toString().padStart(2, "0")}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="dropdown-column">
+                  <div className="dropdown-scroll" ref={monthScrollRef}>
+                    {generateMonths().map((m) => (
+                      <div
+                        key={m}
+                        data-value={m}
+                        className={`dropdown-item ${m === titleMonth ? "active" : ""}`}
+                        onClick={() => handleMonthChange(m)}
+                      >
+                        {m.toString().padStart(2, "0")}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-              <div className="dropdown-column">
-                <div className="dropdown-scroll" ref={monthScrollRef}>
-                  {generateMonths().map((m) => (
-                    <div
-                      key={m}
-                      data-value={m}
-                      className={`dropdown-item ${m === titleMonth ? "active" : ""}`}
-                      onClick={() => handleMonthChange(m)}
-                    >
-                      {m.toString().padStart(2, "0")}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
-      </div>
+      } rightChild={<Button text={"timeline view"} type={"PRIMARY"}/>}/>
+      
       <Calendar
         value={selectedDate} // 현재 선택된 날짜
         onChange={handleDateChange} // 날짜 선택 이벤트

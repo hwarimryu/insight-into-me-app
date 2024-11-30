@@ -1,13 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useSwipeable } from "react-swipeable";
 
 import CalendarView from "./CalendarView";
 import DailyTaskList from "./DailyTaskList";
 import "./MonthlyView.css";
 
-function MonthlyView({ tasks, selectedDate, onSelectedDateChanged }) {
+function MonthlyView({selectedDate, onSelectedDateChanged }) {
   const [layoutState, setLayoutState] = useState("full"); // "full", "split", "task-only"
-
     // 상태 업데이트 함수
   const updateLayoutState = (direction) => {
     if (direction === "up") {
@@ -30,12 +29,11 @@ function MonthlyView({ tasks, selectedDate, onSelectedDateChanged }) {
   return (
     <div {...swipeHandlers} className={`monthly-view ${layoutState}`}>
         <CalendarView
-          tasks={tasks}
           selectedDate={selectedDate}
           onSelectedDateChanged={onSelectedDateChanged}
           layoutState={layoutState}
         />
-      {layoutState !== "full" && (<DailyTaskList tasks={tasks} selectedDate={selectedDate} />)}
+      {layoutState !== "full" && (<DailyTaskList selectedDate={selectedDate} />)}
     </div>
   );
 }
