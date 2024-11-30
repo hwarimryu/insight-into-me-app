@@ -10,7 +10,9 @@
     --text-secondary-color: #757575;
 
     --button-primary-color: #804aff;
+    --button-primary-text-color: #f8f9fa;
     --button-cancel-color: #ccc;
+    --button-cancel-text-color: #f8f9fa;
     --button-text-color: #f8f9fa;
     --task-completed-color: #d9f7be;
     --task-border-color: #52c41a;
@@ -24,9 +26,6 @@
     --background-selected-color: #333333;
     --text-color: #f8f9fa;
     --text-secondary-color: #757575;
-
-    --button-primary-color: #804aff;
-    --button-text-color: #f8f9fa;
     --task-completed-color: #444;
     --task-border-color: #666;
   }
