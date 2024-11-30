@@ -2,10 +2,22 @@ import { useState, useReducer, createContext, useRef } from "react";
 import "./MainView.css";
 import MonthlyView from "./MonthlyView";
 import DailyView from "./DailyView";
-import Button from "./Button";
 
 
-const mockData = [
+const mockPlanData = [
+  { id: 1, date: "2024-11-25", startTime: "17:00", endTime: "19:00", title: "Dinner with Client",completed: false  },
+  { id: 2, date: "2024-11-25", startTime: "12:00", endTime: "13:00",title: "낮잠",completed: true  },
+  { id: 3, date: "2024-11-25", startTime: "12:30", endTime: "13:00",title: "점심식사",completed: true  },
+  { id: 4, date: "2024-11-25", startTime: "12:30", endTime: "12:50",title: "점심식사" ,completed: false   },
+  { id: 5, date: "2024-11-25", startTime: "09:00", endTime: "11:30",title: "Meeting with Team", tag: ["Meeting", "Dinner"] ,completed: false},
+  { id: 6, date: "2024-11-25", startTime: "20:30", endTime: "21:10",title: "운동" ,completed: false},
+  { id: 7, date: "2024-11-26", startTime: "10:00", endTime: "13:00",title: "Conference Call", tag: ["Conference"] ,completed: false},
+  { id: 8, date: "2024-11-26", startTime: "12:00", endTime: "13:00",title: "낮잠" ,completed: true},
+  { id: 9, date: "2024-11-26", startTime: "12:30", endTime: "13:00",title: "점심식사" ,completed: false},
+  { id: 10, date: "2024-11-30", startTime: "07:00", endTime: "10:00",title: "Workout Session", tag: ["Workout", "Study", "Call"],completed: false },
+];
+
+const mockRecordData = [
   { id: 1, date: "2024-11-25", startTime: "17:00", endTime: "19:00", title: "Dinner with Client",completed: false  },
   { id: 2, date: "2024-11-25", startTime: "12:00", endTime: "13:00",title: "낮잠",completed: true  },
   { id: 3, date: "2024-11-25", startTime: "12:30", endTime: "13:00",title: "점심식사",completed: true  },
@@ -40,7 +52,7 @@ export const TaskDispathchContext = createContext();
 function MainView({onTaskSelect}) {
   const [mainViewType, setMainViewType] = useState("monthly"); // "monthly" 또는 "timeline"
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [tasks, dispatch] = useReducer(reducer, mockData);
+  const [plans, dispatch] = useReducer(reducer, mockPlanData);
   const idRef = useRef(11);
 
   const toggleViewType = () => {
@@ -106,21 +118,20 @@ function MainView({onTaskSelect}) {
 
   return (
   <>
-  <TaskStateContext.Provider value={tasks}>
+  <TaskStateContext.Provider value={plans}>
   <TaskDispathchContext.Provider value={{onCreate, onComplete, onUpdate, onDelete}}>
     <div className={`main-view ${mainViewType}`}>
   
       {/* 뷰 전환 */}
       {mainViewType === "monthly" && (
       <MonthlyView
-          tasks={tasks}
           selectedDate={selectedDate}
           onSelectedDateChanged={onSelectedDateChanged}
           layoutState={mainViewType}
           toggleViewType = {toggleViewType} />
       )}
       {mainViewType === "timeline" &&
-       <DailyView tasks={tasks} 
+       <DailyView 
       selectedDate={selectedDate} 
       onDateChange={onSelectedDateChanged} 
       onTaskSelect={onTaskSelect}

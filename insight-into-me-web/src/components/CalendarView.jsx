@@ -165,6 +165,9 @@ function CalendarView({layoutState, onSelectedDateChanged, toggleViewType }) {
   const isSelectedDate = (date) =>
     selectedDate.toLocaleDateString() === date.toLocaleDateString();
 
+  const isTodayDate = (date) =>
+     new Date().toLocaleDateString() === date.toLocaleDateString();
+
   return (
     <div {...swipeHandlers} className={`calendar-container ${layoutState}`}>
       <Header className="calendar-header" title={
@@ -220,7 +223,7 @@ function CalendarView({layoutState, onSelectedDateChanged, toggleViewType }) {
           const taskCount = getTasksForDate(date);
           return (
             <>
-              <abbr className={isSelectedDate(date) ? "selected-date" : ""}>
+              <abbr className={isTodayDate(date) ? "today-date" : ""}>
                 {moment(date).format("DD")}
               </abbr>
               {taskCount > 0 && (
