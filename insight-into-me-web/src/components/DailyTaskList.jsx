@@ -1,15 +1,14 @@
 import { useContext } from "react";
-import { TaskStateContext } from "./MainView";
-
+import { TaskStateContext } from "../App";
 
 import "./DailyTaskList.css";
 
 function DailyTaskList({ selectedDate }) {
-  const tasks = useContext(TaskStateContext)
+  const plans = useContext(TaskStateContext)
   const formattedDate = selectedDate.toLocaleDateString()
 
   // 선택된 날짜의 Task 필터링
-  const tasksForDate = tasks
+  const tasksForDate = plans
   .filter((task) => new Date(task.date).toLocaleDateString() === formattedDate)
   .sort((a, b) => a.startTime.localeCompare(b.startTime));
 

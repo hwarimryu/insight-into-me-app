@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useContext } from "react";
-import { TaskStateContext } from "./MainView";
+import { TaskStateContext } from "../App";
 import TimelineTaskItem from "./TimelineTaskItem";
 import DatePicker from "react-datepicker";
 
@@ -9,7 +9,7 @@ import Button from "./Button";
 import Header from "./Header";
 
 function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType }) {
-  const tasks = useContext(TaskStateContext);
+  const plans = useContext(TaskStateContext);
   const timelineRef = useRef(null);
   const nowRef = useRef(null);
 
@@ -19,7 +19,7 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
   const formattedDate = selectedDate.toLocaleDateString();
   const now = new Date();
 
-  const tasksForDate = tasks
+  const tasksForDate = plans
     .filter((task) => new Date(task.date).toLocaleDateString() === formattedDate)
     .sort((a, b) => a.startTime.localeCompare(b.startTime));
 

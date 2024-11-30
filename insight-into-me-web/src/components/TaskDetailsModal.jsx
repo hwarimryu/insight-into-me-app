@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import "./TaskDetailsModal.css";
+import { TaskDispathchContext } from "../App";
 
-function TaskDetailsModal({ task, onClose, onComplete }) {
+function TaskDetailsModal({ task, onClose }) {
+  const {onComplete} = useContext(TaskDispathchContext)
   useEffect(() => {
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = "hidden";
@@ -13,10 +15,11 @@ function TaskDetailsModal({ task, onClose, onComplete }) {
     };
   }, []);
   
-const handleComplete = () => {
-    onComplete(task.id); // 완료 상태 업데이트
-    onClose(); // 모달 닫기
-};
+  const handleComplete = () => {
+      onComplete(task.id); // 완료 상태 업데이트
+      onClose(); // 모달 닫기
+  };
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">

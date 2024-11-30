@@ -2,14 +2,14 @@ import { useState, useEffect, useRef, useContext } from "react";
 import Calendar from "react-calendar";
 import Header from "./Header";
 import Button from "./Button";
-import { TaskStateContext } from "./MainView";
+import { TaskStateContext } from "../App";
 import { useSwipeable } from "react-swipeable";
 import "react-calendar/dist/Calendar.css";
 import "./CalendarView.css";
 import moment from "moment";
 
 function CalendarView({layoutState, onSelectedDateChanged, toggleViewType }) {
-  const tasks = useContext(TaskStateContext)
+  const plans = useContext(TaskStateContext)
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(new Date()); // 현재 활성화된 월
   const [titleYear, setTitleYear] = useState(selectedDate.getFullYear());
@@ -18,7 +18,7 @@ function CalendarView({layoutState, onSelectedDateChanged, toggleViewType }) {
   // 특정 날짜에 Task가 있는지 확인
   const getTasksForDate = (date) => {
     const dateString = date.toLocaleDateString();
-    const taskData = tasks.filter((t) => new Date(t.date).toLocaleDateString() === dateString);
+    const taskData = plans.filter((t) => new Date(t.date).toLocaleDateString() === dateString);
     return taskData ? taskData.length : 0; // Task 개수 반환
   };
 
