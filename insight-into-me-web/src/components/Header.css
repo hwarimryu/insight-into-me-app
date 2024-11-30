@@ -1,8 +1,10 @@
 /* 헤더 스타일 */
 .Header {
+    width: 100%;
     display: flex;
+    justify-content: center;
     align-items: center;
-    padding: 20px 0px;
+    padding: 0px;
     border-bottom: 1px solid rgb(226, 226, 226);
 }
   

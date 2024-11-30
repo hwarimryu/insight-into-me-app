@@ -8,7 +8,7 @@ import "react-calendar/dist/Calendar.css";
 import "./CalendarView.css";
 import moment from "moment";
 
-function CalendarView({layoutState, onSelectedDateChanged }) {
+function CalendarView({layoutState, onSelectedDateChanged, toggleViewType }) {
   const tasks = useContext(TaskStateContext)
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(new Date()); // 현재 활성화된 월
@@ -167,8 +167,7 @@ function CalendarView({layoutState, onSelectedDateChanged }) {
 
   return (
     <div {...swipeHandlers} className={`calendar-container ${layoutState}`}>
-      <Header title={
-          <div className="calendar-header">
+      <Header className="calendar-header" title={
           <div className="custom-dropdown" onClick={toggleDropdown}>
             <span className="selected-value">
               {`${titleYear} . ${titleMonth.toString().padStart(2, "0")}`}
@@ -208,8 +207,7 @@ function CalendarView({layoutState, onSelectedDateChanged }) {
               </div>
             )}
           </div>
-        </div>
-      } rightChild={<Button text={"timeline view"} type={"PRIMARY"}/>}/>
+      } rightChild={<Button text={"timeline view"} type={"PRIMARY"} onClick={toggleViewType}/>}/>
       
       <Calendar
         value={selectedDate} // 현재 선택된 날짜

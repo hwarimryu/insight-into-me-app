@@ -5,8 +5,10 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./TimelineView.css";
+import Button from "./Button";
+import Header from "./Header";
 
-function TimelineView({ selectedDate, onDateChange, onTaskSelect }) {
+function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType }) {
   const tasks = useContext(TaskStateContext);
   const timelineRef = useRef(null);
   const nowRef = useRef(null);
@@ -53,21 +55,25 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect }) {
     return (
       <div className="timeline-view" ref={timelineRef}>
       {/* 상단 제목 */}
-      <div className="timeline-title">
-      <button onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}>
-      {formattedDate}
-      </button>
-        {isDatePickerOpen && (
-          <DatePicker
-            selected={selectedDate}
-            onChange={(date) => {
-              onDateChange(date);
-              setIsDatePickerOpen(false);
-            }}
-            inline
-          />
-        )}
-      </div>
+      <Header title={
+        <div className="timeline-title">
+        <button onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}>
+        {formattedDate}
+        </button>
+          {isDatePickerOpen && (
+            <DatePicker
+              selected={selectedDate}
+              onChange={(date) => {
+                onDateChange(date);
+                setIsDatePickerOpen(false);
+              }}
+              inline
+            />
+          )}
+        </div>
+      }
+      rightChild={<Button text={"monthly view"} type={"PRIMARY"} onClick={toggleViewType}/>}/>
+    
 
       <div className="timeline-container">
         <div className="timeline-body" ref={timelineRef}>

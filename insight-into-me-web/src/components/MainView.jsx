@@ -2,6 +2,7 @@ import { useState, useReducer, createContext, useRef } from "react";
 import "./MainView.css";
 import MonthlyView from "./MonthlyView";
 import DailyView from "./DailyView";
+import Button from "./Button";
 
 
 const mockData = [
@@ -108,26 +109,22 @@ function MainView({onTaskSelect}) {
   <TaskStateContext.Provider value={tasks}>
   <TaskDispathchContext.Provider value={{onCreate, onComplete, onUpdate, onDelete}}>
     <div className={`main-view ${mainViewType}`}>
-      {/* 상단의 ViewType 전환 버튼 */}
-      <div className="main-view-type-toggle">
-        <button onClick={toggleViewType}>
-          {mainViewType === "monthly" ? "Timeline View" : "Monthly View"}
-        </button>
-      </div>
-
+  
       {/* 뷰 전환 */}
       {mainViewType === "monthly" && (
       <MonthlyView
           tasks={tasks}
           selectedDate={selectedDate}
           onSelectedDateChanged={onSelectedDateChanged}
-          layoutState={mainViewType} />
+          layoutState={mainViewType}
+          toggleViewType = {toggleViewType} />
       )}
       {mainViewType === "timeline" &&
        <DailyView tasks={tasks} 
       selectedDate={selectedDate} 
       onDateChange={onSelectedDateChanged} 
-      onTaskSelect={onTaskSelect}/>}
+      onTaskSelect={onTaskSelect}
+      toggleViewType = {toggleViewType} />}
     </div>
     </TaskDispathchContext.Provider>
     </TaskStateContext.Provider>

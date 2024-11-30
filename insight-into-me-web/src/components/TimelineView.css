@@ -3,19 +3,21 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 20px;
   box-sizing: border-box;
   overflow-y: auto;
-  background-color: #f9f9f9;
+  background-color: var(--background-color);
 }
 
 .timeline-title {
   font-size: 18px;
-  color: #333;
-  margin: 0;
+  margin: 5px 0px;
   position: sticky;
   top: 0;
   z-index: 10;
+}
+
+.timeline-title > div, .timeline-title > button  {
+  background-color: var(--background-color);
 }
 
 .timeline-container {
@@ -99,7 +101,7 @@
 
 .current-time-marker {
   position: absolute;
-  width: 85vw;
+  width: 95vw;
   border: 1px solid var(--primary-color-red);
   z-index: 3;
   transform: translateY(-50%);

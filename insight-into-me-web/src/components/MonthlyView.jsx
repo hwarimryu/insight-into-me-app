@@ -5,7 +5,7 @@ import CalendarView from "./CalendarView";
 import DailyTaskList from "./DailyTaskList";
 import "./MonthlyView.css";
 
-function MonthlyView({selectedDate, onSelectedDateChanged }) {
+function MonthlyView({selectedDate, onSelectedDateChanged, toggleViewType }) {
   const [layoutState, setLayoutState] = useState("full"); // "full", "split", "task-only"
     // 상태 업데이트 함수
   const updateLayoutState = (direction) => {
@@ -32,6 +32,7 @@ function MonthlyView({selectedDate, onSelectedDateChanged }) {
           selectedDate={selectedDate}
           onSelectedDateChanged={onSelectedDateChanged}
           layoutState={layoutState}
+          toggleViewType={toggleViewType}
         />
       {layoutState !== "full" && (<DailyTaskList selectedDate={selectedDate} />)}
     </div>
