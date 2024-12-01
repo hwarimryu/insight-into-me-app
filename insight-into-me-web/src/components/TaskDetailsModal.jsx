@@ -26,8 +26,8 @@ function TaskDetailsModal({ task, onClose }) {
         <h2>Task Details</h2>
         <div className="task-details">
           <p><strong>Title:</strong> {task.title}</p>
-          <p><strong>Start Time:</strong> {task.startTime}</p>
-          <p><strong>End Time:</strong> {task.endTime}</p>
+          <p><strong>Start Time:</strong> {task.startDateTime}</p>
+          <p><strong>End Time:</strong> {task.endDateTime}</p>
           <p><strong>Tags:</strong> {task.tags?.join(", ")}</p>
           <p><strong>Completed:</strong> {task.completed ? "Yes" : "No"}</p>
         </div>

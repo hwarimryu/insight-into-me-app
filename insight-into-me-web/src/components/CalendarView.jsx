@@ -16,9 +16,9 @@ function CalendarView({layoutState, onSelectedDateChanged, toggleViewType }) {
   const [titleMonth, setTitleMonth] = useState(selectedDate.getMonth() + 1);
 
   // 특정 날짜에 Task가 있는지 확인
-  const getTasksForDate = (date) => {
+  const getTasksCountForDate = (date) => {
     const dateString = date.toLocaleDateString();
-    const taskData = plans.filter((t) => new Date(t.date).toLocaleDateString() === dateString);
+    const taskData = plans.filter((t) => new Date(t.startDateTime).toLocaleDateString() === dateString);
     return taskData ? taskData.length : 0; // Task 개수 반환
   };
 
@@ -220,7 +220,7 @@ function CalendarView({layoutState, onSelectedDateChanged, toggleViewType }) {
         showNavigation={false} /* 상단 기본 연월 숨김 */
         formatDay={(locale, date) => null}
         tileContent={({ date }) => {
-          const taskCount = getTasksForDate(date);
+          const taskCount = getTasksCountForDate(date);
           return (
             <>
               <abbr className={isTodayDate(date) ? "today-date" : ""}>

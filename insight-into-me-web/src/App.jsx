@@ -29,29 +29,19 @@ function reducer(state, action) {
 }
 
 const mockPlanData = [
-  { id: 1, date: "2024-11-25", startTime: "17:00", endTime: "19:00", title: "Dinner with Client",completed: false  },
-  { id: 2, date: "2024-11-25", startTime: "12:00", endTime: "13:00",title: "낮잠",completed: true  },
-  { id: 3, date: "2024-11-25", startTime: "12:30", endTime: "13:00",title: "점심식사",completed: true  },
-  { id: 4, date: "2024-11-25", startTime: "12:30", endTime: "12:50",title: "점심식사" ,completed: false   },
-  { id: 5, date: "2024-11-25", startTime: "09:00", endTime: "11:30",title: "Meeting with Team", tag: ["Meeting", "Dinner"] ,completed: false},
-  { id: 6, date: "2024-11-25", startTime: "20:30", endTime: "21:10",title: "운동" ,completed: false},
-  { id: 7, date: "2024-11-26", startTime: "10:00", endTime: "13:00",title: "Conference Call", tag: ["Conference"] ,completed: false},
-  { id: 8, date: "2024-11-26", startTime: "12:00", endTime: "13:00",title: "낮잠" ,completed: true},
-  { id: 9, date: "2024-11-26", startTime: "12:30", endTime: "13:00",title: "점심식사" ,completed: false},
-  { id: 10, date: "2024-11-30", startTime: "07:00", endTime: "10:00",title: "Workout Session", tag: ["Workout", "Study", "Call"],completed: false },
+  { id: 1, startDateTime: new Date(2024,10,29,17,0,0).getTime(),  endDateTime: new Date(2024,10,29,19,0,0).getTime(), title: "Dinner with Client",completed: false  },
+  { id: 2, startDateTime: new Date(2024,10,30,12,30,0).getTime(), endDateTime: new Date(2024,10,30,13,0,0).getTime(), title: "점심식사" ,completed: false   },
+  { id: 3, startDateTime: new Date(2024,10,30,9,0,0).getTime(),   endDateTime: new Date(2024,10,30,17,0,0).getTime(), title: "Meeting with Team", tag: ["Meeting", "Dinner"] ,completed: false},
+  { id: 4, startDateTime: new Date(2024,10,30,20,30,0).getTime(), endDateTime: new Date(2024,10,30,17,0,0).getTime(), title: "운동" ,completed: false},
+  { id: 5, startDateTime: new Date(2024,11,1,17,0,0).getTime(),   endDateTime: new Date(2024,11,1,17,40,0).getTime(), title: "Conference Call", tag: ["Conference"] ,completed: false},
+  { id: 6, startDateTime: new Date(2024,11,2,17,0,0).getTime(),   endDateTime: new Date(2024,11,2,17,30,0).getTime(), title: "점심식사" ,completed: false},
+  { id: 7, startDateTime: new Date(2024,11,2,17,0,0).getTime(),  endDateTime: new Date(2024,11,2,18,0,0).getTime(), title: "Workout Session", tag: ["Workout", "Study", "Call"],completed: false },
 ];
 
 const mockRecordData = [
-  { id: 1, date: "2024-11-25", startTime: "17:00", endTime: "19:00", title: "Dinner with Client",completed: false  },
-  { id: 2, date: "2024-11-25", startTime: "12:00", endTime: "13:00",title: "낮잠",completed: true  },
-  { id: 3, date: "2024-11-25", startTime: "12:30", endTime: "13:00",title: "점심식사",completed: true  },
-  { id: 4, date: "2024-11-25", startTime: "12:30", endTime: "12:50",title: "점심식사" ,completed: false   },
-  { id: 5, date: "2024-11-25", startTime: "09:00", endTime: "11:30",title: "Meeting with Team", tag: ["Meeting", "Dinner"] ,completed: false},
-  { id: 6, date: "2024-11-25", startTime: "20:30", endTime: "21:10",title: "운동" ,completed: false},
-  { id: 7, date: "2024-11-26", startTime: "10:00", endTime: "13:00",title: "Conference Call", tag: ["Conference"] ,completed: false},
-  { id: 8, date: "2024-11-26", startTime: "12:00", endTime: "13:00",title: "낮잠" ,completed: true},
-  { id: 9, date: "2024-11-26", startTime: "12:30", endTime: "13:00",title: "점심식사" ,completed: false},
-  { id: 10, date: "2024-11-30", startTime: "07:00", endTime: "10:00",title: "Workout Session", tag: ["Workout", "Study", "Call"],completed: false },
+  { id: 1, startDateTime: new Date(2024,10,29,12,0,0).getTime(),  endDateTime: new Date(2024,10,29,13,0,0).getTime(), title: "낮잠",completed: true  },
+  { id: 2, startDateTime: new Date(2024,10,29,12,30,0).getTime(), endDateTime: new Date(2024,10,29,14,0,0).getTime(), title: "점심식사",completed: true  },
+  { id: 3, startDateTime: new Date(2024,11,1,20,0,0).getTime(),   endDateTime: new Date(2024,11,1,21,0,0).getTime(), title: "낮잠" ,completed: true},
 ];
 
 export const TaskStateContext = createContext();
@@ -59,7 +49,8 @@ export const TaskDispathchContext = createContext();
 
 function App() {
   const [plans, dispatch] = useReducer(reducer, mockPlanData);
-  const idRef = useRef(11);
+  const idPlanRef = useRef(8);
+  const idRecordRef = useRef(4);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null); // TaskDetailsModal 상태
@@ -73,30 +64,29 @@ function App() {
   };
 
     // Task 추가 핸들러
-    const onCreate = (id, date, startTime, endTime, title, completed, tags) => {
+  const onCreate = (startDateTime, endDateTime, title, completed, tags) => {
       dispatch({
         type:"CREATE",
         data : {
-          id: idRef.current++,
-          date, 
-          startTime,
-          endTime,
+          id: idPlanRef.current++,
+          startDateTime,
+          endDateTime,
           title,
           completed,
           tags,
         }
       })
-    };
+  };
 
     // Task 완료 상태 업데이트 핸들러
-    const onComplete = (id) => {
+  const onComplete = (id) => {
       dispatch({
         type:"COMPLETE",
         data : {
           id,
         }
       })
-    };
+  };
 
     // 기존 일기 수정
   const onUpdate = (id, date, startTime, endTime, title, completed, tags) => {
@@ -141,11 +131,11 @@ function App() {
           +
         </button>
         {/* Task 추가 모달 */}
-        {isTaskModalOpen && <TaskFormModal onClose={toggleTaskModal} onAddTask={handleAddTask}/>}
+        {isTaskModalOpen && <TaskFormModal onClose={toggleTaskModal}/>}
         {selectedTask && (
             <TaskDetailsModal
               task={selectedTask}
-              onClose={() => setSelectedTask(null)}
+              onClose={() => setSelectedTask}
             />
           )}
       </div>

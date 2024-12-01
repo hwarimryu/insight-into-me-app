@@ -1,0 +1,40 @@
+/* 모달 오버레이 */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    flex-direction: column;
+}
+
+.Modal  {
+    background-color: var(--background-color);
+    width: 90%;
+    max-width: 500px;
+    border-radius: 8px;
+}
+
+.Modal .title-section {
+    text-align: center;
+    font-size: 12px;
+}
+
+/* 모달 콘텐츠 */
+.Modal .content-section {
+    width: 90%;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.Modal .buttons-section {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+  

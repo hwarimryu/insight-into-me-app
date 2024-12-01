@@ -1,35 +1,32 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { TaskDispathchContext } from "../App";
 import "./TaskFormModal.css";
+import Modal from "./Modal";
+import Button from "./Button";
 
-function TaskFormModal({ onClose, onAddTask }) {
+function TaskFormModal({ onClose }) {
   const [title, setTitle] = useState("");
-  const [start, setStart] = useState("");
-  const [end, setEnd] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [endTime, setEndTime] = useState("");
   const [tags, setTags] = useState("");
+  const { onCreate } = useContext(TaskDispathchContext);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // 새 Task 데이터 생성
-    const newTask = {
-      id: Date.now(),
-      title,
-      startTime: new Date(start).toLocaleTimeString(),
-      endTime:  new Date(end).toLocaleTimeString(),
-      tags: tags.split(",").map((tag) => tag.trim()), // 쉼표로 구분된 태그 배열
-      date: new Date(start).toLocaleDateString(), // Task의 날짜
-    };
-
-    console.log(newTask)
-    onAddTask(newTask); // 상위 컴포넌트로 Task 전달
+  const handleSubmit = () => {
+    onCreate(
+      new Date(`${startDate} ${startTime}`).getTime(), 
+      new Date(`${endDate} ${endTime}`).getTime(),
+      title, false, tags); // 상위 컴포넌트로 Task 전달
     onClose(); // 모달 닫기
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <h2>Task 추가</h2>
-        <form onSubmit={handleSubmit}>
+    <>
+    <Modal 
+      title={<h2>Task 추가</h2>}
+      content={
+        <form>
           <div className="form-group">
             <label>제목</label>
             <input
@@ -40,21 +37,33 @@ function TaskFormModal({ onClose, onAddTask }) {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form-group datetime">
             <label>시작</label>
             <input
-              type="datetime-local"
-              value={start}
-              onChange={(e) => setStart(e.target.value)}
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              required
+            />
+            <input
+              type="time"
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form-group datetime">
             <label>종료</label>
             <input
-              type="datetime-local"
-              value={end}
-              onChange={(e) => setEnd(e.target.value)}
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              required
+            />
+            <input
+              type="time"
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}
               required
             />
           </div>
@@ -67,21 +76,11 @@ function TaskFormModal({ onClose, onAddTask }) {
               onChange={(e) => setTags(e.target.value)}
             />
           </div>
-          <div className="modal-buttons">
-            <button
-              type="button"
-              onClick={onClose}
-              className="cancel-button"
-            >
-              취소
-            </button>
-            <button type="submit" className="add-button">
-              추가
-            </button>
-          </div>
         </form>
-      </div>
-    </div>
+        }
+        buttons={<><Button onClick={onClose} text={"취소"} type={'CANCEL'}/> <Button onClick={handleSubmit} text={"추가"} type={'PRIMARY'}/></>}
+      />
+    </>
   );
 }
 

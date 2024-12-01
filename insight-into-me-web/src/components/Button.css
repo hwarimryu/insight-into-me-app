@@ -18,3 +18,11 @@
     background-color: var(--button-cancel-color);
     color: var(--button-cancel-text-color);
 }
+
+.Button_CANCEL:hover {
+    background-color: var(--button-cancel-color);
+  }
+  
+.Button_PRIMARY:hover {
+    background-color: var(--button-primary-color);
+}

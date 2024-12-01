@@ -1,31 +1,3 @@
-/* 모달 오버레이 */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-/* 모달 콘텐츠 */
-.modal-content {
-  background-color: var(--background-color);
-  width: 90%;
-  max-width: 500px;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-  text-align: center;
-}
-
-h2 {
-  margin-bottom: 20px;
-}
 
 .form-group {
   display: flex; /* 라벨과 인풋을 가로로 정렬 */
@@ -34,45 +6,20 @@ h2 {
 }
 
 .form-group label {
-  flex: 0 0 100px; /* 라벨의 고정 너비 */
+  flex: 0 0 80px; /* 라벨의 고정 너비 */
+  font-size: 14px;
   font-weight: bold;
 }
 
 .form-group input {
   flex: 1; /* 입력 필드는 남은 공간 채우기 */
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #eee;
   border-radius: 4px;
 }
 
-/* 모달 버튼 */
-.modal-buttons {
-  display: flex;
-  justify-content: space-between;
-}
 
-.cancel-button,
-.add-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.cancel-button {
-  background-color: var(--button-cancel-color);
-  color: black;
-}
-
-.add-button {
-  background-color: var(--button-primary-color);
-  color: var(--button-text-color);
-}
-
-.cancel-button:hover {
-  background-color: var(--button-cancel-color);
-}
-
-.add-button:hover {
-  background-color: var(--button-primary-color);
+.form-group.datetime input{
+  flex: 0.5; /* 입력 필드는 남은 공간 채우기 */
+  font-size: 10px;
 }
