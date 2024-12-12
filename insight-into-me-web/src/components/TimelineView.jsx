@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./TimelineView.css";
 import Button from "./Button";
 import Header from "./Header";
+import { getTasksAtDate } from "../utils/DateTimeUtil";
 
 function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType }) {
   const plans = useContext(TaskStateContext);
@@ -19,9 +20,7 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
   const formattedDate = selectedDate.toLocaleDateString();
   const now = new Date();
 
-  const tasksForDate = plans
-    .filter((task) => new Date(task.date).toLocaleDateString() === formattedDate)
-    .sort((a, b) => a.startTime.localeCompare(b.startTime));
+  const tasksForDate = getTasksAtDate(formattedDate, plans);
 
   // 시간 표시를 위한 범위 생성
   const generateTimeSlots = () => {
