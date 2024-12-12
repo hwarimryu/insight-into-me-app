@@ -38,7 +38,7 @@ const mockPlanData = [
   { id: 7, startDateTime: new Date(2024,11,2,17,0,0).getTime(),  endDateTime: new Date(2024,11,2,18,0,0).getTime(), title: "Workout Session", tag: ["Workout", "Study", "Call"],completed: false },
 ];
 
-const mockRecordData = [
+const mockDoData = [
   { id: 1, startDateTime: new Date(2024,10,29,12,0,0).getTime(),  endDateTime: new Date(2024,10,29,13,0,0).getTime(), title: "낮잠",completed: true  },
   { id: 2, startDateTime: new Date(2024,10,29,12,30,0).getTime(), endDateTime: new Date(2024,10,29,14,0,0).getTime(), title: "점심식사",completed: true  },
   { id: 3, startDateTime: new Date(2024,11,1,20,0,0).getTime(),   endDateTime: new Date(2024,11,1,21,0,0).getTime(), title: "낮잠" ,completed: true},
@@ -48,9 +48,10 @@ export const TaskStateContext = createContext();
 export const TaskDispathchContext = createContext();
 
 function App() {
-  const [plans, dispatch] = useReducer(reducer, mockPlanData);
+  const [plans, planDispatch] = useReducer(reducer, mockPlanData);
+  const [dos, doDispatch] = useReducer(reducer, mockDoData);
   const idPlanRef = useRef(8);
-  const idRecordRef = useRef(4);
+  const idDoRef = useRef(4);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null); // TaskDetailsModal 상태
@@ -80,17 +81,23 @@ function App() {
 
     // Task 완료 상태 업데이트 핸들러
   const onComplete = (id) => {
-      dispatch({
+    planDispatch({
         type:"COMPLETE",
         data : {
           id,
         }
       })
+
+    doDispatch({
+      type:"CREATE",
+      data : plans.filter(p => p.id === id)
+    })
+      
   };
 
     // 기존 일기 수정
   const onUpdate = (id, date, startTime, endTime, title, completed, tags) => {
-    dispatch({
+    planDispatch({
       type:"UPDATE",
       data : {
         id,
@@ -106,7 +113,7 @@ function App() {
 
   // 기존 일기 삭제
   const onDelete = (id) => {
-    dispatch({
+    planDispatch({
       type:"DELETE",
       data : {
         id,

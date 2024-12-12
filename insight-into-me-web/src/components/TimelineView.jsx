@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./TimelineView.css";
 import Button from "./Button";
 import Header from "./Header";
-import { getTasksAtDate } from "../utils/DateTimeUtil";
+import { getTasksAtDate, generateTimeSlots } from "../utils/DateTimeUtil";
 
 function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType }) {
   const plans = useContext(TaskStateContext);
@@ -23,17 +23,11 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
   const tasksForDate = getTasksAtDate(formattedDate, plans);
 
   // 시간 표시를 위한 범위 생성
-  const generateTimeSlots = () => {
-    const timeSlots = [];
-    for (let hour = 0; hour <= 24; hour++) {
-      const time = `${String(hour).padStart(2, "0")}:00`;
-      timeSlots.push(time);
-    }
-    return timeSlots;
-  };
+  const timeSlots = generateTimeSlots();
+
   // 시작 시간을 픽셀 위치로 변환
   const timeToPosition = (time) => {
-    const [hour, minute] = time.split(":").map(Number);
+    const [hour, minute] = new Date(time).toTimeString().split(":").map(Number);
     const hourHeight = 80; // 1시간에 80px
     const minuteHeight = hourHeight / 60; // 1분에 해당하는 높이
     return 40 + hour * hourHeight + minute * minuteHeight;
@@ -80,8 +74,8 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
             {tasksForDate
               .filter((task) => !task.completed)
               .map((task, index) => {
-                const start = timeToPosition(task.startTime);
-                const end = timeToPosition(task.endTime);
+                const start = timeToPosition(task.startDateTime);
+                const end = timeToPosition(task.endDateTime);
                 const height = end - start;
                 return (
                 <div
@@ -92,15 +86,15 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
                     height: `${height}px`,
                   }}                
                   ref={
-                  task.startTime <= now.toTimeString().split(" ")[0] &&
-                  now.toTimeString().split(" ")[0] < task.endTime
+                  new Date(task.startDateTime).toTimeString() <= now.toTimeString().split(" ")[0] &&
+                  now.toTimeString().split(" ")[0] <new Date(task.endDateTime).toTimeString()
                     ? nowRef
                     : null
                   }
                   onClick={() => onTaskSelect(task)} >
                 <TimelineTaskItem
                   key={index}
-                  startTime={task.startTime}
+                  startTime={task.startDateTime}
                   title={task.title}
                 />
                 </div>)
@@ -110,7 +104,7 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
           <div className="timeline-center">
             <div className="timeline-center-line"></div>
             <div className="time-overlay">
-              {generateTimeSlots().map((time, index) => (
+              {timeSlots.map((time, index) => (
                 <div key={index} className="time-slot">
                   {time}
                 </div>
@@ -128,8 +122,8 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
             {tasksForDate
               .filter((task) => task.completed)
               .map((task, index) => {
-                const start = timeToPosition(task.startTime);
-                const end = timeToPosition(task.endTime);
+                const start = timeToPosition(task.startDateTime);
+                const end = timeToPosition(task.endDateTime);
                 const height = end - start;
                 
                 return (
@@ -141,8 +135,8 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
                     height: `${height}px`,
                   }}                
                   ref={
-                  task.startTime <= now.toTimeString().split(" ")[0] &&
-                  now.toTimeString().split(" ")[0] < task.endTime
+                    new Date(task.startDateTime).toTimeString() <= now.toTimeString().split(" ")[0] &&
+                    now.toTimeString().split(" ")[0] <new Date(task.endDateTime).toTimeString()
                     ? nowRef
                     : null
                 }
