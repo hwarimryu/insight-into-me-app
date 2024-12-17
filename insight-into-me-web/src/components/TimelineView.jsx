@@ -143,7 +143,7 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
                     ? nowRef
                     : null
                 }
-              >
+                onClick={() => onTaskSelect(task)} >
                 <TimelineTaskItem
                   key={index}
                   startTime={task.startDateTime}

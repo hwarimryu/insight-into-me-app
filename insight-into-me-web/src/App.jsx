@@ -6,6 +6,7 @@ import ThemeToggle from "./components/ThemeToggle";
 import MainView from "./components/MainView";
 import TaskFormModal from "./components/TaskFormModal";
 import TaskDetailsModal from "./components/TaskDetailsModal";
+import Button from "./components/Button";
 
 import "./App.css";
 import { TaskType } from "./codes/Type";
@@ -49,22 +50,22 @@ function doneReducer(state, action) {
 }
 
 const mockPlanData = [
-  { id: 1, startDateTime: new Date(2024,11,29,17,0,0).getTime(),  endDateTime: new Date(2024,11,29,19,0,0).getTime(), title: "Dinner with Client",completed: false  },
-  { id: 2, startDateTime: new Date(2024,11,30,12,30,0).getTime(), endDateTime: new Date(2024,11,30,13,0,0).getTime(), title: "점심식사" ,completed: false   },
-  { id: 3, startDateTime: new Date(2024,11,30,9,0,0).getTime(),   endDateTime: new Date(2024,11,30,17,0,0).getTime(), title: "Meeting with Team", tag: ["Meeting", "Dinner"] ,completed: false},
-  { id: 4, startDateTime: new Date(2024,11,30,20,30,0).getTime(), endDateTime: new Date(2024,11,30,17,0,0).getTime(), title: "운동" ,completed: false},
-  { id: 5, startDateTime: new Date(2024,11,1,17,0,0).getTime(),   endDateTime: new Date(2024,11,1,17,40,0).getTime(), title: "Conference Call", tag: ["Conference"] ,completed: false},
-  { id: 6, startDateTime: new Date(2024,11,2,17,0,0).getTime(),   endDateTime: new Date(2024,11,2,17,30,0).getTime(), title: "점심식사" ,completed: false},
-  { id: 7, startDateTime: new Date(2024,11,2,17,0,0).getTime(),  endDateTime: new Date(2024,11,2,18,0,0).getTime(), title: "Workout Session", tag: ["Workout", "Study", "Call"],completed: false },
-  { id: 8, startDateTime: new Date(2024,11,29,17,0,0).getTime(),  endDateTime: new Date(2024,11,29,19,0,0).getTime(), title: "Dinner with Client",completed: false  },
-  { id: 9, startDateTime: new Date(2024,12,29,17,0,0).getTime(),  endDateTime: new Date(2024,12,29,19,0,0).getTime(), title: "Dinner with Client",completed: false  },
-  { id: 10, startDateTime: new Date(2025,1,29,17,0,0).getTime(),  endDateTime: new Date(2025,1,29,19,0,0).getTime(), title: "Dinner with Client",completed: false  },
+  { id: 1, type: TaskType.PLAN, startDateTime: new Date(2024,11,29,17,0,0).getTime(),  endDateTime: new Date(2024,11,29,19,0,0).getTime(), title: "Dinner with Client",completed: false  },
+  { id: 2, type: TaskType.PLAN, startDateTime: new Date(2024,11,30,12,30,0).getTime(), endDateTime: new Date(2024,11,30,13,0,0).getTime(), title: "점심식사" ,completed: false   },
+  { id: 3, type: TaskType.PLAN, startDateTime: new Date(2024,11,30,9,0,0).getTime(),   endDateTime: new Date(2024,11,30,17,0,0).getTime(), title: "Meeting with Team", tag: ["Meeting", "Dinner"] ,completed: false},
+  { id: 4, type: TaskType.PLAN, startDateTime: new Date(2024,11,30,20,30,0).getTime(), endDateTime: new Date(2024,11,30,17,0,0).getTime(), title: "운동" ,completed: false},
+  { id: 5, type: TaskType.PLAN, startDateTime: new Date(2024,11,1,17,0,0).getTime(),   endDateTime: new Date(2024,11,1,17,40,0).getTime(), title: "Conference Call", tag: ["Conference"] ,completed: false},
+  { id: 6, type: TaskType.PLAN, startDateTime: new Date(2024,11,2,17,0,0).getTime(),   endDateTime: new Date(2024,11,2,17,30,0).getTime(), title: "점심식사" ,completed: false},
+  { id: 7, type: TaskType.PLAN, startDateTime: new Date(2024,11,2,17,0,0).getTime(),  endDateTime: new Date(2024,11,2,18,0,0).getTime(), title: "Workout Session", tag: ["Workout", "Study", "Call"],completed: false },
+  { id: 8, type: TaskType.PLAN, startDateTime: new Date(2024,11,29,17,0,0).getTime(),  endDateTime: new Date(2024,11,29,19,0,0).getTime(), title: "Dinner with Client",completed: false  },
+  { id: 9, type: TaskType.PLAN, startDateTime: new Date(2024,12,29,17,0,0).getTime(),  endDateTime: new Date(2024,12,29,19,0,0).getTime(), title: "Dinner with Client",completed: false  },
+  { id: 10, type: TaskType.PLAN, startDateTime: new Date(2025,1,29,17,0,0).getTime(),  endDateTime: new Date(2025,1,29,19,0,0).getTime(), title: "Dinner with Client",completed: false  },
 ];
 
 const mockDoneData = [
-  { id: 1, startDateTime: new Date(2024,11,29,12,0,0).getTime(),  endDateTime: new Date(2024,11,29,13,0,0).getTime(), title: "낮잠",completed: true  },
-  { id: 2, startDateTime: new Date(2024,11,29,12,30,0).getTime(), endDateTime: new Date(2024,11,29,14,0,0).getTime(), title: "점심식사",completed: true  },
-  { id: 3, startDateTime: new Date(2024,12,1,20,0,0).getTime(),   endDateTime: new Date(2024,12,1,21,0,0).getTime(), title: "낮잠" ,completed: true},
+  { id: 1, type: TaskType.DONE, startDateTime: new Date(2024,11,29,12,0,0).getTime(),  endDateTime: new Date(2024,11,29,13,0,0).getTime(), title: "낮잠",completed: true  },
+  { id: 2, type: TaskType.DONE, startDateTime: new Date(2024,11,29,12,30,0).getTime(), endDateTime: new Date(2024,11,29,14,0,0).getTime(), title: "점심식사",completed: true  },
+  { id: 3, type: TaskType.DONE, startDateTime: new Date(2024,12,1,20,0,0).getTime(),   endDateTime: new Date(2024,12,1,21,0,0).getTime(), title: "낮잠" ,completed: true},
 ];
 
 export const TaskStateContext = createContext();
@@ -79,14 +80,21 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [isTaskDetailModalOpen, setIsTaskDetailModalOpen] = useState(false);
+  const [isToggleAddTaskButtonActive, setIsToggleAddTaskButtonActive] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null); // TaskDetailsModal 상태
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+
+  const toggleAddTaskButtons = (active) => {
+    setIsToggleAddTaskButtonActive(active === null ? !isToggleAddTaskButtonActive : active);
+  };
+
   const toggleTaskModal = () => {
     setIsTaskModalOpen(!isTaskModalOpen);
+    toggleAddTaskButtons(false);
   };
 
   const toggleTaskDetailModal = () => {
@@ -186,9 +194,30 @@ function App() {
           }}/>
         </main>
         {/* Task 추가 버튼 */}
-        <button className="task-add-button" onClick={toggleTaskModal}>
+        <button className="task-add-button" onClick={toggleAddTaskButtons}>
           +
         </button>
+        {isToggleAddTaskButtonActive&&<>
+          <button className="task-add-button plan" onClick={toggleTaskModal}>
+          plan
+        </button>
+
+        <button className="task-add-button done" onClick={toggleTaskModal}>
+          done
+        </button>
+
+        <button className="task-add-button todo" onClick={toggleTaskModal}>
+          todo
+        </button>
+
+        <button className="task-add-button diary" onClick={toggleTaskModal}>
+          diary
+        </button>
+        </>
+        } 
+      
+        {/* <Button></Button> */}
+
         {/* Task 추가 모달 */}
         {isTaskModalOpen && <TaskFormModal onClose={toggleTaskModal}/>}
         {isTaskDetailModalOpen && selectedTask && 

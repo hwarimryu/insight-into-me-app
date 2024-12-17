@@ -19,11 +19,11 @@
   position: fixed;
   bottom: 20px; /* 화면 하단에서 20px */
   right: 20px; /* 화면 오른쪽에서 20px */
-  width: 60px;
+  width: 50px;
   background-color: #804aff;
   color: white;
   font-size: 20px;
-  line-height: 60px;
+  line-height: 50px;
   font-weight: bold;
   border: none;
   border-radius: 50%; /* 동그란 버튼 */
@@ -38,5 +38,29 @@
 
 .task-add-button:hover {
   background-color: #4e2c9c; /* Hover 시 색상 변경 */
+}
+
+/* 오른쪽 하단 Task 추가 버튼 */
+.task-add-button.plan, .task-add-button.done, .task-add-button.todo, .task-add-button.diary {
+  right: 20px; /* 화면 오른쪽에서 20px */
+  width: 50px;
+  font-size: 15px;
+  line-height: 50px;
+}
+
+.task-add-button.plan {
+  bottom: 80px; /* 화면 하단에서 20px */
+}
+
+.task-add-button.done {
+  bottom: 140px; /* 화면 하단에서 20px */
+}
+
+.task-add-button.todo {
+  bottom: 200px; /* 화면 하단에서 20px */
+}
+
+.task-add-button.task-add-button.diary {
+  bottom: 260px; /* 화면 하단에서 20px */
 }
 

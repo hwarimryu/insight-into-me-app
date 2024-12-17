@@ -24,5 +24,22 @@ const generateTimeSlots = () => {
     }
     return timeSlots;
 };
+
+const getDateTimeStringForModal = (dateTime) => {
+  const date = dateTime.toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      weekday: "short",
+    })
+
+  const time = getTimeString(dateTime)
+  return date + " " + time;
+}
+
+const getTimeString = (dateTime) => {
+  const time = new Date(dateTime);
+  return `${time.getHours() < 10 ? '0'+time.getHours() : time.getHours()}:${time.getMinutes() < 10 ? '0'+time.getMinutes(): time.getMinutes()}`;
+}
     
-export {getTasksAtDate, formattedDate, generateTimeSlots};
+export {getTasksAtDate, formattedDate, generateTimeSlots, getDateTimeStringForModal};
