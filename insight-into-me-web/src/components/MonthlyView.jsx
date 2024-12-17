@@ -6,7 +6,7 @@ import DailyTaskList from "./DailyTaskList";
 import "./MonthlyView.css";
 
 function MonthlyView({selectedDate, onSelectedDateChanged, toggleViewType }) {
-  const [layoutState, setLayoutState] = useState("full"); // "full", "split", "task-only"
+  const [layoutState, setLayoutState] = useState("split"); // "full", "split", "task-only"
     // 상태 업데이트 함수
   const updateLayoutState = (direction) => {
     if (direction === "up") {
