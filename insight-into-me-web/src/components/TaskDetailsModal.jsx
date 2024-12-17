@@ -38,7 +38,7 @@ function TaskDetailsModal({ task, onClose }) {
           disabled={task.completed} >
             {task.completed ? "Completed" : "Mark as Complete"}
           </button>
-          <button className="close-button" onClick={onClose}>
+          <button className="close-button" onClick={() => onClose()}>
             Close
           </button>
         </div>

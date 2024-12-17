@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useContext } from "react";
-import { TaskStateContext } from "../App";
+import { TaskStateContext, DoneStateContext } from "../App";
 import TimelineTaskItem from "./TimelineTaskItem";
 import DatePicker from "react-datepicker";
 
@@ -11,6 +11,7 @@ import { getTasksAtDate, generateTimeSlots } from "../utils/DateTimeUtil";
 
 function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType }) {
   const plans = useContext(TaskStateContext);
+  const dones = useContext(DoneStateContext);
   const timelineRef = useRef(null);
   const nowRef = useRef(null);
 
@@ -20,7 +21,8 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
   const formattedDate = selectedDate.toLocaleDateString();
   const now = new Date();
 
-  const tasksForDate = getTasksAtDate(formattedDate, plans);
+  const palnsForDate = getTasksAtDate(formattedDate, plans);
+  const donesForDate = getTasksAtDate(formattedDate, dones);
 
   // 시간 표시를 위한 범위 생성
   const timeSlots = generateTimeSlots();
@@ -43,8 +45,9 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
     if (nowRef.current) {
       nowRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-  }, [tasksForDate]);
+  }, [palnsForDate]);
 
+  console.log(donesForDate);
     return (
       <div className="timeline-view" ref={timelineRef}>
       {/* 상단 제목 */}
@@ -71,8 +74,7 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
       <div className="timeline-container">
         <div className="timeline-body" ref={timelineRef}>
           <div className="tasks-left">
-            {tasksForDate
-              .filter((task) => !task.completed)
+            {palnsForDate
               .map((task, index) => {
                 const start = timeToPosition(task.startDateTime);
                 const end = timeToPosition(task.endDateTime);
@@ -119,8 +121,9 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
           </div>
 
           <div className="tasks-right">
-            {tasksForDate
-              .filter((task) => task.completed)
+            {
+            
+            donesForDate
               .map((task, index) => {
                 const start = timeToPosition(task.startDateTime);
                 const end = timeToPosition(task.endDateTime);
@@ -143,7 +146,7 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
               >
                 <TimelineTaskItem
                   key={index}
-                  startTime={task.startTime}
+                  startTime={task.startDateTime}
                   title={task.title}
                   isCompleted={true}
                 />

@@ -3,6 +3,7 @@ import { TaskDispathchContext } from "../App";
 import "./TaskFormModal.css";
 import Modal from "./Modal";
 import Button from "./Button";
+import { TaskType } from "../codes/Type";
 
 function TaskFormModal({ onClose }) {
   const [title, setTitle] = useState("");
@@ -15,6 +16,8 @@ function TaskFormModal({ onClose }) {
 
   const handleSubmit = () => {
     onCreate(
+      TaskType.PLAN,
+      undefined,
       new Date(`${startDate} ${startTime}`).getTime(), 
       new Date(`${endDate} ${endTime}`).getTime(),
       title, false, tags); // 상위 컴포넌트로 Task 전달
@@ -78,7 +81,7 @@ function TaskFormModal({ onClose }) {
           </div>
         </form>
         }
-        buttons={<><Button onClick={onClose} text={"취소"} type={'CANCEL'}/> <Button onClick={handleSubmit} text={"추가"} type={'PRIMARY'}/></>}
+        buttons={<><Button onClick={() => onClose()} text={"취소"} type={'CANCEL'}/> <Button onClick={handleSubmit} text={"추가"} type={'PRIMARY'}/></>}
       />
     </>
   );

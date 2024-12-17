@@ -14,6 +14,7 @@ function MainView({onTaskSelect}) {
   };
 
   const onSelectedDateChanged = (date) => {
+    console.log(date)
     setSelectedDate(date)
   }
 

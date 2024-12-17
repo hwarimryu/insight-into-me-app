@@ -1,6 +1,13 @@
 
 const getTasksAtDate = (formattedDate, tasks) => {
-    return tasks.filter((task) => new Date(task.startDateTime).toLocaleDateString() === formattedDate)
+  console.log(formattedDate)
+  
+
+    return tasks.filter((task) => {
+      console.log(task.title + " "+new Date(task.startDateTime).toLocaleDateString())
+      return new Date(task.startDateTime).toLocaleDateString() === formattedDate
+
+    })
     .sort((a, b) => new Date(a.startDateTime) < new Date(b.startDateTime));
 }
 
