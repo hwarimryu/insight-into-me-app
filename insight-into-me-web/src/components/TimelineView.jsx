@@ -32,20 +32,20 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
     const [hour, minute] = new Date(time).toTimeString().split(":").map(Number);
     const hourHeight = 80; // 1시간에 80px
     const minuteHeight = hourHeight / 60; // 1분에 해당하는 높이
+
     return 40 + hour * hourHeight + minute * minuteHeight;
   };
   
   // 현재 시간을 픽셀 위치로 변환
-  const nowPosition = timeToPosition(
-    `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`
-  );
+  const nowPosition = timeToPosition(now);
 
   // 현재 시간을 타임라인의 중심에 위치시킴
   useEffect(() => {
     if (nowRef.current) {
       nowRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-  }, [palnsForDate]);
+
+  }, [timeSlots]);
 
   console.log(donesForDate);
     return (
@@ -115,7 +115,7 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
               <div
                 className="current-time-marker"
                 style={{ top: `${nowPosition}px` }}
-                ref={nowRef}
+                // ref={nowRef}
               />
             </div>
           </div>
@@ -143,7 +143,7 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
                     ? nowRef
                     : null
                 }
-              >
+                onClick={() => onTaskSelect(task)} >
                 <TimelineTaskItem
                   key={index}
                   startTime={task.startDateTime}

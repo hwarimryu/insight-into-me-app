@@ -1,6 +1,10 @@
 import { useEffect, useContext } from "react";
 import "./TaskDetailsModal.css";
 import { TaskDispathchContext } from "../App";
+import Modal from "./Modal";
+import Button from "./Button";
+import {getDateTimeStringForModal} from "../utils/DateTimeUtil"
+import { TaskType } from "../codes/Type";
 
 function TaskDetailsModal({ task, onClose }) {
   const {onComplete} = useContext(TaskDispathchContext)
@@ -20,8 +24,39 @@ function TaskDetailsModal({ task, onClose }) {
       onClose(); // 모달 닫기
   };
 
+  const handleReview = () => {
+    // onComplete(task.id); // 완료 상태 업데이트
+    onClose(); // 모달 닫기
+};
+
   return (
-    <div className="modal-overlay">
+    <>
+    {task.type === TaskType.PLAN && <Modal
+      title={<h2> {task.title} </h2>}
+      content={
+        <div className="task-details">
+          <p> 시작: {getDateTimeStringForModal(new Date(task.startDateTime))} </p>
+          <p> 종료: {getDateTimeStringForModal(new Date(task.endDateTime))}</p>
+          <p>{task.completed ? "완료" : "미완료"}</p>
+          <p>Tags: {task.tags?.join(", ")}</p>
+        </div>
+      }
+      buttons={<><Button onClick={() => onClose()} text={"닫기"} type={'CANCEL'}/> <Button onClick={handleComplete} text={"완료"} type={'PRIMARY'}/></>}
+    />}
+
+    {task.type === TaskType.DONE && <Modal
+      title={<h2> {task.title} </h2>}
+      content={
+        <div className="task-details">
+          <p> 시작: {getDateTimeStringForModal(new Date(task.startDateTime))} </p>
+          <p> 종료: {getDateTimeStringForModal(new Date(task.endDateTime))}</p>
+          <p>{task.completed ? "완료" : "미완료"}</p>
+          <p>Tags: {task.tags?.join(", ")}</p>
+        </div>
+      }
+      buttons={<><Button onClick={() => onClose()} text={"닫기"} type={'CANCEL'}/> <Button onClick={handleReview} text={"리뷰"} type={'PRIMARY'}/></>}
+    />}
+    {/* <div className="modal-overlay">
       <div className="modal-content">
         <h2>Task Details</h2>
         <div className="task-details">
@@ -43,7 +78,8 @@ function TaskDetailsModal({ task, onClose }) {
           </button>
         </div>
       </div>
-    </div>
+    </div> */}
+    </>
   );
 }
 
