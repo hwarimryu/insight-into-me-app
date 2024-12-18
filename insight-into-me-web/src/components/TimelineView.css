@@ -92,7 +92,7 @@
   position: absolute;
   z-index: 3;
   display: flex;
-  width: 48%;
+  width: 46%;
   justify-content: flex-start;
   box-sizing: border-box;
   cursor: pointer;
@@ -105,5 +105,5 @@
   border: 1px solid var(--primary-color-red);
   z-index: 3;
   transform: translateY(-50%);
-  opacity: 40%;
+  opacity: 80%;
 }

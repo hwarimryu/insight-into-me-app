@@ -5,16 +5,16 @@
   font-size: 12px;
   padding: 4px 8px;
   box-sizing: border-box;
-  background-color: #e7e2fa;
-  border: 1px solid #d2caf0;
+  background-color: var(--plan-background-color);
+  border: 1px solid var(--plan-border-color);
   border-radius: 4px;
   transition: background-color 0.2s ease;
 }
 
 .task-item.completed {
-  opacity: 0.6;
-  background-color: #e6e6e7;
-  border: 1px solid #dfdfe2;
+  /* opacity: 0.6; */
+  background-color: var(--done-background-color);
+  border: 1px solid var(--done-border-color);
 }
 
 .task-item:hover {

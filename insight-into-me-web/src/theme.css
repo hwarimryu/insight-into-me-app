@@ -1,8 +1,8 @@
 /* 기본 테마 */
 :root {
-    --primary-color: #804aff;
-    --secondary-color: #ac96fb;
-    --background-color: #fbf8ef;
+    --primary-color: #3700d0;
+    --secondary-color: #3700d094;
+    --background-color: #ffffff;
     --background-dark-color: #444;
     --background-selected-color: #e7e6e6;
     --primary-color-red: #ef5350;
@@ -10,19 +10,27 @@
     --text-color-white: #f8f9fa;
     --text-secondary-color: #757575;
 
-    --button-primary-color: #804aff;
-    --button-primary-text-color: #f8f9fa;
+    --button-primary-color: #3700d0;
+    --button-primary-text-color: #ffffff;
     --button-cancel-color: #ccc;
     --button-cancel-text-color: #f8f9fa;
     --button-text-color: #f8f9fa;
+
+    --plan-background-color: #000ad020;
+    --plan-border-color: #000ad026;
+
+    --done-background-color: #98989820;
+    --done-border-color: #98989826;
+
+
     --task-completed-color: #d9f7be;
     --task-border-color: #52c41a;
   }
   
   /* 다크 테마 */
   [data-theme="dark"] {
-    --primary-color: #ac96fb;
-    --secondary-color: #804aff;
+    --primary-color: #3700d094;
+    --secondary-color: #3700d0;
     --background-color: #121212;
     --background-selected-color: #333333;
     --text-color: #f8f9fa;

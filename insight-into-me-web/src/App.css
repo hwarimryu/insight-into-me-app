@@ -20,7 +20,7 @@
   bottom: 20px; /* 화면 하단에서 20px */
   right: 20px; /* 화면 오른쪽에서 20px */
   width: 50px;
-  background-color: #804aff;
+  background-color: var(--button-primary-color);
   color: white;
   font-size: 20px;
   line-height: 50px;
@@ -37,7 +37,7 @@
 }
 
 .task-add-button:hover {
-  background-color: #4e2c9c; /* Hover 시 색상 변경 */
+  background-color: var(--button-primary-color);; /* Hover 시 색상 변경 */
 }
 
 /* 오른쪽 하단 Task 추가 버튼 */
