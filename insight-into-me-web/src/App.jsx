@@ -1,5 +1,7 @@
 import { useState, useReducer, createContext, useRef } from "react";
 import ThemeProvider from "./ThemeProvider";
+
+
 import "./theme.css"; // 테마 정의한 CSS 파일
 
 // import ThemeToggle from "./components/ThemeToggle";
@@ -240,6 +242,7 @@ function App() {
   }
 
   return (
+    // <Provider theme={baseTheme}>
     <ThemeProvider>
       <TaskStateContext.Provider value={plans}>
       <DoneStateContext.Provider value={dones}>
@@ -293,6 +296,7 @@ function App() {
       </DoneStateContext.Provider>
       </TaskStateContext.Provider>
     </ThemeProvider>
+    // </Provider>
   );
 }
 

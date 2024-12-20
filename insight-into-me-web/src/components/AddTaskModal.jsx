@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { TaskDispathchContext } from "../App";
 import "./TaskFormModal.css";
 import Modal from "./Modal";
-import Button from "./Button";
+import Button from "./ButtonCustom";
 import { TaskType } from "../codes/Type";
 
 function AddTaskModal({ type, onClose }) {

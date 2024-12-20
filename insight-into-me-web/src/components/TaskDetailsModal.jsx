@@ -2,7 +2,7 @@ import { useEffect, useContext } from "react";
 import "./TaskDetailsModal.css";
 import { TaskDispathchContext } from "../App";
 import Modal from "./Modal";
-import Button from "./Button";
+import Button from "./ButtonCustom";
 import {getDateTimeStringForModal} from "../utils/DateTimeUtil"
 import { TaskType } from "../codes/Type";
 

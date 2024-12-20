@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./TimelineView.css";
-import Button from "./Button";
+import Button from "./ButtonCustom";
 import Header from "./Header";
 import { getTasksAtDate, generateTimeSlots } from "../utils/DateTimeUtil";
 
