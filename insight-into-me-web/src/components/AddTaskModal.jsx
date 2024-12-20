@@ -36,7 +36,7 @@ function AddTaskModal({ type, onClose }) {
       new Date(`${endDate} ${endTime}`).getTime(),
       title, false, tags); // 상위 컴포넌트로 Task 전달
       
-    onClose(); // 모달 닫기
+          onClose(); // 모달 닫기
   };
 
 
