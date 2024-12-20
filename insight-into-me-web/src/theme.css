@@ -28,7 +28,7 @@
   }
   
   /* 다크 테마 */
-  [data-theme="dark"] {
+  /* [data-theme="dark"] {
     --primary-color: #3700d094;
     --secondary-color: #3700d0;
     --background-color: #121212;
@@ -37,5 +37,5 @@
     --text-secondary-color: #757575;
     --task-completed-color: #444;
     --task-border-color: #666;
-  }
+  } */
   

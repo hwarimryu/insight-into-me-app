@@ -5,8 +5,16 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./TimelineView.css";
-import Button from "./Button";
-import Header from "./Header";
+import ButtonCustom from "./ButtonCustom";
+import { CalendarIcon } from '@chakra-ui/icons'
+import { Box,
+  Button,
+  VStack,
+  Text,
+  HStack,
+  Flex, } from '@chakra-ui/react'
+
+import Header from "./common/Header";
 import { getTasksAtDate, generateTimeSlots } from "../utils/DateTimeUtil";
 
 function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType }) {
@@ -14,15 +22,13 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
   const dones = useContext(DoneStateContext);
   const timelineRef = useRef(null);
   const nowRef = useRef(null);
-
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
   // 선택된 날짜와 현재 시간
   const formattedDate = selectedDate.toLocaleDateString();
   const now = new Date();
-
-  const palnsForDate = getTasksAtDate(formattedDate, plans);
-  const donesForDate = getTasksAtDate(formattedDate, dones);
+  const plansForDate = getTasksAtDate(formattedDate, plans);
+  const logsForDate = getTasksAtDate(formattedDate, dones);
 
   // 시간 표시를 위한 범위 생성
   const timeSlots = generateTimeSlots();
@@ -32,8 +38,7 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
     const [hour, minute] = new Date(time).toTimeString().split(":").map(Number);
     const hourHeight = 80; // 1시간에 80px
     const minuteHeight = hourHeight / 60; // 1분에 해당하는 높이
-
-    return 40 + hour * hourHeight + minute * minuteHeight;
+    return 20 + hour * hourHeight + minute * minuteHeight;
   };
   
   // 현재 시간을 픽셀 위치로 변환
@@ -47,124 +52,115 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
 
   }, [timeSlots]);
 
-  console.log(donesForDate);
-    return (
-      <div className="timeline-view" ref={timelineRef}>
-      {/* 상단 제목 */}
-      <Header title={
-        <div className="timeline-title">
-        <button onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}>
-        {formattedDate}
-        </button>
-          {isDatePickerOpen && (
-            <DatePicker
-              selected={selectedDate}
-              onChange={(date) => {
-                onDateChange(date);
-                setIsDatePickerOpen(false);
-              }}
-              inline
-            />
-          )}
-        </div>
-      }
-      rightChild={<Button text={"monthly view"} type={"PRIMARY"} onClick={toggleViewType}/>}/>
-    
+    return (<>
+      <Box position="fixed" top={10} left={0} right={0} ml={5} mr={5} zIndex={10} bg="white">
+        <Header
+            className="timeline-title"
+            title={
+              <HStack spacing={2}>
+                <Button onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}>{formattedDate}</Button>
+                {isDatePickerOpen && (
+                  <DatePicker
+                    selected={selectedDate}
+                    onChange={(date) => {
+                      onDateChange(date);
+                      setIsDatePickerOpen(false);
+                    }}
+                    inline
+                  />
+                )}
+              </HStack>
+            }
+            rightChild={<ButtonCustom text={<CalendarIcon />} type={"PRIMARY"} onClick={toggleViewType}/>}
+          />
+      </Box>
 
-      <div className="timeline-container">
-        <div className="timeline-body" ref={timelineRef}>
-          <div className="tasks-left">
-            {palnsForDate
-              .map((task, index) => {
-                const start = timeToPosition(task.startDateTime);
-                const end = timeToPosition(task.endDateTime);
-                const height = end - start;
-                return (
-                <div
-                  key={index}
-                  className="task-block"
-                  style={{
-                    top: `${start}px`,
-                    height: `${height}px`,
-                  }}                
-                  ref={
+      <VStack ref={timelineRef} align="stretch" p={4} className="timeline-view" mt="80px" overflowY="auto" maxH="calc(100vh - 80px)" css={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+      <Flex className="timeline-container" alignItems="flex-start">
+        <VStack h="2200px" className="tasks-left" align="stretch" w="48%" position="relative">
+          {plansForDate.map((task, index) => {
+            const start = timeToPosition(task.startDateTime);
+            const end = timeToPosition(task.endDateTime);
+            const height = end - start;
+            return (
+              <Box
+                key={index}
+                className="task-block"
+                bg="blue.100"
+                p={0}
+                borderRadius="md"
+                position="absolute"
+                border={"1px solid var(--plan-border-color)"}
+                top={`${start}px`}
+                height={`${height}px`}
+                w="full"
+                ref={
                   new Date(task.startDateTime).toTimeString() <= now.toTimeString().split(" ")[0] &&
-                  now.toTimeString().split(" ")[0] <new Date(task.endDateTime).toTimeString()
-                    ? nowRef
-                    : null
-                  }
-                  onClick={() => onTaskSelect(task)} >
-                <TimelineTaskItem
-                  key={index}
-                  startTime={task.startDateTime}
-                  title={task.title}
-                />
-                </div>)
-              })}
-          </div>
-
-          <div className="timeline-center">
-            <div className="timeline-center-line"></div>
-            <div className="time-overlay">
-              {timeSlots.map((time, index) => (
-                <div key={index} className="time-slot">
-                  {time}
-                </div>
-              ))}
-              {/* 현재 시간 마커 */}
-              <div
-                className="current-time-marker"
-                style={{ top: `${nowPosition}px` }}
-                // ref={nowRef}
-              />
-            </div>
-          </div>
-
-          <div className="tasks-right">
-            {
-            
-            donesForDate
-              .map((task, index) => {
-                const start = timeToPosition(task.startDateTime);
-                const end = timeToPosition(task.endDateTime);
-                const height = end - start;
-                
-                return (
-                <div
-                  key={index}
-                  className="task-block"
-                  style={{
-                    top: `${start}px`,
-                    height: `${height}px`,
-                  }}                
-                  ref={
-                    new Date(task.startDateTime).toTimeString() <= now.toTimeString().split(" ")[0] &&
-                    now.toTimeString().split(" ")[0] <new Date(task.endDateTime).toTimeString()
+                  now.toTimeString().split(" ")[0] < new Date(task.endDateTime).toTimeString()
                     ? nowRef
                     : null
                 }
-                onClick={() => onTaskSelect(task)} >
+                onClick={() => onTaskSelect(task)}
+              >
                 <TimelineTaskItem
                   key={index}
-                  startTime={task.startDateTime}
                   title={task.title}
-                  isCompleted={true}
                 />
-                </div>)
+              </Box>
+            );
           })}
-
-           {/* TaskDetailsModal */}
-          {/* {selectedTask && (
-          <TaskDetailsModal
-            task={selectedTask}
-            onClose={() => setSelectedTask(null)}
-            onComplete={onCompleteTask}
-          />
-          )} */}
-          </div>
-        </div>
-      </div>
-    </div>
+        </VStack>
+        <VStack className="timeline-center" w="4%" align="center">
+          <Box className="timeline-center-line" h="2200px" w="1px" bg="gray.200" zIndex={100}/>
+          <VStack className="time-overlay" spacing={2} align="center">
+            {timeSlots.map((time, index) => (
+              <Text key={index} className="time-slot">
+                {time}
+              </Text>
+            ))}
+            <Box
+              className="current-time-marker"
+              position="absolute"
+              top={`${nowPosition}px`}
+              w="90vw"
+              h="1px"
+              borderRadius="full"
+              bg="red.500"
+            />
+          </VStack>
+        </VStack>
+        <VStack h="2200px" className="tasks-right" align="stretch" w="48%" position="relative">
+          {logsForDate.map((task, index) => {
+            const start = timeToPosition(task.startDateTime);
+            const end = timeToPosition(task.endDateTime);
+            const height = end - start;
+            console.log(task.title + ": "+ start)
+            return (
+              <Box
+                key={index}
+                className="task-block"
+                bg="gray.100"
+                p={0}
+                borderRadius="md"
+                border={"1px solid var(--done-border-color)"}
+                position="absolute"
+                top={`${start}px`}
+                height={`${height}px`}
+                w="full"
+                onClick={() => onTaskSelect(task)}
+              >
+                <TimelineTaskItem
+                  key={index}
+                  title={task.title}
+                />
+              </Box>
+            );
+          })}
+        </VStack>
+      </Flex>
+    </VStack>
+  </>
+     
     );
 }
 

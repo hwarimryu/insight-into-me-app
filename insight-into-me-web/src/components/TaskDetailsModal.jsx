@@ -1,8 +1,8 @@
 import { useEffect, useContext } from "react";
 import "./TaskDetailsModal.css";
 import { TaskDispathchContext } from "../App";
-import Modal from "./Modal";
-import Button from "./Button";
+import CommonModal from "./common/Modal";
+import Button from "./ButtonCustom";
 import {getDateTimeStringForModal} from "../utils/DateTimeUtil"
 import { TaskType } from "../codes/Type";
 
@@ -31,7 +31,7 @@ function TaskDetailsModal({ task, onClose }) {
 
   return (
     <>
-    {task.type === TaskType.PLAN && <Modal
+    {task.type === TaskType.PLAN && <CommonModal
       title={<h2> {task.title} </h2>}
       content={
         <div className="task-details">
@@ -44,7 +44,7 @@ function TaskDetailsModal({ task, onClose }) {
       buttons={<><Button onClick={() => onClose()} text={"닫기"} type={'CANCEL'}/> <Button onClick={handleComplete} text={"완료"} type={'PRIMARY'}/></>}
     />}
 
-    {task.type === TaskType.DONE && <Modal
+    {task.type === TaskType.DONE && <CommonModal
       title={<h2> {task.title} </h2>}
       content={
         <div className="task-details">

@@ -1,30 +1,29 @@
 .task-item {
-  display: flex;
+  /* display: flex;
   width: 100%;
-  align-items: start;
+  align-items: start; */
   font-size: 12px;
   padding: 4px 8px;
-  box-sizing: border-box;
+  /* box-sizing: border-box;
   background-color: var(--plan-background-color);
   border: 1px solid var(--plan-border-color);
   border-radius: 4px;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease; */
 }
-
+/* 
 .task-item.completed {
-  /* opacity: 0.6; */
   background-color: var(--done-background-color);
   border: 1px solid var(--done-border-color);
 }
 
 .task-item:hover {
   background-color: #deccff;
-}
-
+} */
+/* 
 .task-title {
   color: #444;
   font-weight: bold;
   white-space: nowrap;
   overflow:hidden ;
   text-overflow: ellipsis;
-}
+} */
