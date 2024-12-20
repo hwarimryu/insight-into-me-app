@@ -1,5 +1,7 @@
 import { useState, useReducer, createContext, useRef } from "react";
 import ThemeProvider from "./ThemeProvider";
+
+
 import "./theme.css"; // 테마 정의한 CSS 파일
 
 // import ThemeToggle from "./components/ThemeToggle";
@@ -7,10 +9,12 @@ import MainView from "./components/MainView";
 // import TaskFormModal from "./components/TaskFormModal";
 import TaskDetailsModal from "./components/TaskDetailsModal";
 // import Button from "./components/Button";
+import { Container } from "@chakra-ui/react";
 
 import "./App.css";
 import { TaskType } from "./codes/Type";
 import AddTaskModal from "./components/AddTaskModal";
+// import Header from "./components/common/Header";
 
 function planReducer(state, action) {
   switch(action.type) {
@@ -86,17 +90,19 @@ const mockPlanData = [
   { id: 13, type: TaskType.PLAN, startDateTime: new Date(2024,11,18,15,0,0).getTime(), endDateTime: new Date(2024,11,18,16,30,0).getTime(), title: "독서 - 인스파이어드", tags: ["독서", "취미"], completed: false},
   { id: 14, type: TaskType.PLAN, startDateTime: new Date(2024,11,18,16,30,0).getTime(), endDateTime: new Date(2024,11,18,18,0,0).getTime(), title: "일기", tags: ["멘탈", "취미"], completed: false},
   { id: 15, type: TaskType.PLAN, startDateTime: new Date(2024,11,18,18,0,0).getTime(), endDateTime: new Date(2024,11,18,19,30,0).getTime(), title: "알고리즘 문제 2개", tags: ["취준"], completed: false},
-  { id: 16, type: TaskType.PLAN, startDateTime: new Date(2024,11,18,19,30,0).getTime(), endDateTime: new Date(2024,11,18,21,40,0).getTime(), title: "포트폴리오 - 자기소개서, 집가는 길~", tags: ["취준"] ,completed: false},
-  { id: 17, type: TaskType.PLAN, startDateTime: new Date(2024,11,18,22,0,0).getTime(), endDateTime: new Date(2024,11,18,23,40,0).getTime(), title: "독서, 일기, 걷기", tags: ["멘탈", "운동", "취미"] ,completed: false},
+  { id: 16, type: TaskType.PLAN, startDateTime: new Date(2024,11,20,19,30,0).getTime(), endDateTime: new Date(2024,11,20,21,40,0).getTime(), title: "포트폴리오 - 자기소개서, 집가는 길~", tags: ["취준"] ,completed: false},
+  { id: 17, type: TaskType.PLAN, startDateTime: new Date(2024,11,20,22,0,0).getTime(), endDateTime: new Date(2024,11,20,23,40,0).getTime(), title: "독서, 일기, 걷기", tags: ["멘탈", "운동", "취미"] ,completed: false},
 ];
 
 const mockDoneData = [
-  { id: 1, planId: 11, type: TaskType.DONE, startDateTime: new Date(2024,11,18,11,50,0).getTime(), endDateTime: new Date(2024,11,18,13,10,0).getTime(), title: "점심 약속", tags:["멘탈"], completed: true},
-  { id: 2, planId: 12, type: TaskType.DONE, startDateTime: new Date(2024,11,18,13,20,0).getTime(), endDateTime: new Date(2024,11,18,15,0,0).getTime(), title: "개인 프로젝트", tags: ["취미"], completed: true},
+  { id: 1, planId: 11, type: TaskType.LOG, startDateTime: new Date(2024,11,20,11,50,0).getTime(), endDateTime: new Date(2024,11,20,13,10,0).getTime(), title: "점심 약속", tags:["멘탈"], completed: true},
+  { id: 2, planId: 12, type: TaskType.LOG, startDateTime: new Date(2024,11,20,13,20,0).getTime(), endDateTime: new Date(2024,11,20,15,0,0).getTime(), title: "개인 프로젝트", tags: ["취미"], completed: true},
 
-  { id: 8, type: TaskType.DONE, startDateTime: new Date(2024,11,29,12,0,0).getTime(), endDateTime: new Date(2024,11,29,13,0,0).getTime(), title: "낮잠",completed: true  },
-  { id: 9, type: TaskType.DONE, startDateTime: new Date(2024,11,29,12,30,0).getTime(), endDateTime: new Date(2024,11,29,14,0,0).getTime(), title: "점심식사",completed: true  },
-  { id: 10, type: TaskType.DONE, startDateTime: new Date(2024,12,1,20,0,0).getTime(), endDateTime: new Date(2024,12,1,21,0,0).getTime(), title: "낮잠" ,completed: true},
+  { id: 8, type: TaskType.LOG, startDateTime: new Date(2024,11,29,12,0,0).getTime(), endDateTime: new Date(2024,11,29,13,0,0).getTime(), title: "낮잠",completed: true  },
+  { id: 9, type: TaskType.LOG, startDateTime: new Date(2024,11,29,12,30,0).getTime(), endDateTime: new Date(2024,11,29,14,0,0).getTime(), title: "점심식사",completed: true  },
+  { id: 10, type: TaskType.LOG, startDateTime: new Date(2024,12,1,20,0,0).getTime(), endDateTime: new Date(2024,12,1,21,0,0).getTime(), title: "낮잠" ,completed: true},
+  { id: 16, type: TaskType.LOG, startDateTime: new Date(2024,11,20,19,30,0).getTime(), endDateTime: new Date(2024,11,20,21,40,0).getTime(), title: "포트폴리오 - 자기소개서, 집가는 길~", tags: ["취준"] ,completed: false},
+  { id: 17, type: TaskType.LOG, startDateTime: new Date(2024,11,20,22,0,0).getTime(), endDateTime: new Date(2024,11,20,23,40,0).getTime(), title: "독서, 일기, 걷기", tags: ["멘탈", "운동", "취미"] ,completed: false},
 ];
 
 const mockTodoData = [
@@ -150,6 +156,7 @@ function App() {
 
     // Task 추가 핸들러
   const onCreate = (type, planId, startDateTime, endDateTime, title, completed, tags) => {
+    console.log("onCreate")
     if(type === TaskType.PLAN) {
       planDispatch({
           type:"CREATE",
@@ -165,11 +172,11 @@ function App() {
         })
     }
 
-    if(type === TaskType.DONE) {
+    if(type === TaskType.LOG) {
       doneDispatch({
           type:"CREATE",
           data : {
-            type: TaskType.DONE,
+            type: TaskType.LOG,
             id: idDoneRef.current++,
             planId,
             startDateTime,
@@ -240,11 +247,13 @@ function App() {
   }
 
   return (
+    // <Provider theme={baseTheme}>
     <ThemeProvider>
       <TaskStateContext.Provider value={plans}>
       <DoneStateContext.Provider value={dones}>
       <TaskDispathchContext.Provider value={{onCreate, onComplete, onUpdate, onDelete}}>
-      <div className="app">
+      <Container className="app" maxW="md" mt={10}>
+        {/* <Header /> */}
         {/* <ThemeToggle /> */}
         {/* 헤더 */}
         {/* <Header title="로고나제목" onMenuToggle={toggleMenu} /> */}
@@ -264,8 +273,8 @@ function App() {
             plan
           </button>
 
-          <button className="task-add-button done" onClick={() => toggleAddTaskModal(TaskType.DONE)}>
-            done
+          <button className="task-add-button done" onClick={() => toggleAddTaskModal(TaskType.LOG)}>
+            log
           </button>
 
           <button className="task-add-button todo" onClick={() => toggleAddTaskModal(TaskType.TODO)}>
@@ -288,11 +297,12 @@ function App() {
               onClose={toggleTaskDetailModal}
             />
           }
-      </div>
+      </Container>
       </TaskDispathchContext.Provider>
       </DoneStateContext.Provider>
       </TaskStateContext.Provider>
     </ThemeProvider>
+    // </Provider>
   );
 }
 

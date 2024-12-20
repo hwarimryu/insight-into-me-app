@@ -5,7 +5,7 @@ import DailyView from "./DailyView";
 
 
 function MainView({onTaskSelect}) {
-  const [mainViewType, setMainViewType] = useState("monthly"); // "monthly" 또는 "timeline"
+  const [mainViewType, setMainViewType] = useState("timeline"); // "monthly" 또는 "timeline"
   const [selectedDate, setSelectedDate] = useState(new Date());
 
 
