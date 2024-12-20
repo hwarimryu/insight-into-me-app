@@ -8,10 +8,14 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: "autoUpdate",
+      includeAssets: ["favicon.ico", "robots.txt", "apple-touch-icon.png"],
       manifest: {
-        name: "Timeline Management App",
-        short_name: "Timeline",
-        description: "A timeline management application.",
+        name: "Insight Into Me",
+        short_name: "IM",
+        description: "Task and Timeline Management App",
+        start_url: ".",
+        display: "standalone",
+        background_color: "#ffffff",
         theme_color: "#3182ce",
         icons: [
           {
@@ -22,6 +26,11 @@ export default defineConfig({
           {
             src: "/icon-512x512.png",
             sizes: "512x512",
+            type: "image/png",
+          },
+          {
+            src: "/apple-touch-icon.png",
+            sizes: "180x180",
             type: "image/png",
           },
         ],
