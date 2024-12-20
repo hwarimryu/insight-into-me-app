@@ -12,7 +12,7 @@
     z-index: 1000;
     flex-direction: column;
 }
-
+/* 
 .Modal  {
     background-color: var(--background-color);
     width: 90%;
@@ -26,6 +26,7 @@
 }
 
 /* 모달 콘텐츠 */
+/*
 .Modal .content-section {
     width: 90%;
     border-radius: 8px;
@@ -37,4 +38,4 @@
     justify-content: space-between;
     margin: 10px;
 }
-  
+   */

@@ -15,7 +15,7 @@ import { Container } from "@chakra-ui/react";
 import "./App.css";
 import { TaskType } from "./codes/Type";
 import AddTaskModal from "./components/AddTaskModal";
-import Header from "./components/common/Header";
+// import Header from "./components/common/Header";
 
 function planReducer(state, action) {
   switch(action.type) {
@@ -271,8 +271,8 @@ function App() {
             plan
           </button>
 
-          <button className="task-add-button done" onClick={() => toggleAddTaskModal(TaskType.DONE)}>
-            done
+          <button className="task-add-button done" onClick={() => toggleAddTaskModal(TaskType.LOG)}>
+            log
           </button>
 
           <button className="task-add-button todo" onClick={() => toggleAddTaskModal(TaskType.TODO)}>
