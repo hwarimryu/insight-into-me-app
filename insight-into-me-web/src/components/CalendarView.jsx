@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import Calendar from "react-calendar";
-import Header from "./Header";
+import Header from "./common/Header";
 import ButtonCustom from "./ButtonCustom";
+import {TimeIcon} from '@chakra-ui/icons'
 import { TaskStateContext } from "../App";
 import { useSwipeable } from "react-swipeable";
 import "react-calendar/dist/Calendar.css";
@@ -210,7 +211,7 @@ function CalendarView({layoutState, onSelectedDateChanged, toggleViewType }) {
               </div>
             )}
           </div>
-      } rightChild={<ButtonCustom text={"timeline view"} type={"PRIMARY"} onClick={toggleViewType}/>}/>
+      } rightChild={<ButtonCustom text={<TimeIcon />} type={"PRIMARY"} onClick={toggleViewType}/>}/>
       
       <Calendar
         value={selectedDate} // 현재 선택된 날짜

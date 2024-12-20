@@ -6,7 +6,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./TimelineView.css";
 import Button from "./ButtonCustom";
-import Header from "./Header";
+import { CalendarIcon } from '@chakra-ui/icons'
+
+import Header from "./common/Header";
 import { getTasksAtDate, generateTimeSlots } from "../utils/DateTimeUtil";
 
 function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType }) {
@@ -68,7 +70,7 @@ function TimelineView({ selectedDate, onDateChange, onTaskSelect, toggleViewType
           )}
         </div>
       }
-      rightChild={<Button text={"monthly view"} type={"PRIMARY"} onClick={toggleViewType}/>}/>
+      rightChild={<Button text={<CalendarIcon />} type={"PRIMARY"} onClick={toggleViewType}/>}/>
     
 
       <div className="timeline-container">

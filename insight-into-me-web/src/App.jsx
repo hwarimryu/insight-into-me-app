@@ -9,10 +9,13 @@ import MainView from "./components/MainView";
 // import TaskFormModal from "./components/TaskFormModal";
 import TaskDetailsModal from "./components/TaskDetailsModal";
 // import Button from "./components/Button";
+import { Container } from "@chakra-ui/react";
+
 
 import "./App.css";
 import { TaskType } from "./codes/Type";
 import AddTaskModal from "./components/AddTaskModal";
+import Header from "./components/common/Header";
 
 function planReducer(state, action) {
   switch(action.type) {
@@ -247,7 +250,8 @@ function App() {
       <TaskStateContext.Provider value={plans}>
       <DoneStateContext.Provider value={dones}>
       <TaskDispathchContext.Provider value={{onCreate, onComplete, onUpdate, onDelete}}>
-      <div className="app">
+      <Container className="app" maxW="md" mt={10}>
+        {/* <Header /> */}
         {/* <ThemeToggle /> */}
         {/* 헤더 */}
         {/* <Header title="로고나제목" onMenuToggle={toggleMenu} /> */}
@@ -291,7 +295,7 @@ function App() {
               onClose={toggleTaskDetailModal}
             />
           }
-      </div>
+      </Container>
       </TaskDispathchContext.Provider>
       </DoneStateContext.Provider>
       </TaskStateContext.Provider>
